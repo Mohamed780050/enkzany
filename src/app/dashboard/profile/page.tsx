@@ -28,7 +28,7 @@ export default async function ProfilePage() {
         </p>
       </div>
 
-      <div className="bg-white rounded-[2.5rem] p-4 shadow-2xl shadow-primary/5 ring-1 ring-border/50">
+      <div className="bg-white rounded-[2.5rem] p-4 shadow-2xl shadow-primary/5">
         <ProfileForm hospital={hospital} />
       </div>
     </div>
