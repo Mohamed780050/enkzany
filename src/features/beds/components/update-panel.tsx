@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { updateBedsAction, type BedUpdateState } from "../actions";
-import { Hospital } from "@prisma/client";
+import { Hospital } from "@/generated/prisma/client";
 import { Button } from "@/components/ui/button";
 import {
   Minus,

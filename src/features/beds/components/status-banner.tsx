@@ -1,4 +1,4 @@
-import { Hospital } from "@prisma/client";
+import { Hospital } from "@/generated/prisma/client";
 import { AlertCircle, Clock } from "lucide-react";
 
 export function StatusBanner({ hospital }: { hospital: Hospital }) {

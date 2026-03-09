@@ -1,4 +1,4 @@
-import { UpdateHistory } from "@prisma/client";
+import { UpdateHistory } from "@/generated/prisma/client";
 import {
   Table,
   TableBody,

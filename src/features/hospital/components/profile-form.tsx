@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { updateProfileAction } from "../actions";
-import { Hospital } from "@prisma/client";
+import { Hospital } from "@/generated/prisma/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
