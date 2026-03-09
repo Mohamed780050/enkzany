@@ -134,7 +134,7 @@ export function BedUpdatePanel({ hospital }: { hospital: Hospital }) {
               icon={BedDouble}
               colorClass="bg-blue-500"
             />
-            <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent mx-8" />
+            <div className="h-px bg-linear-to-r from-transparent via-border/50 to-transparent mx-8" />
             <NumberStepper
               name="bedsIcu"
               value={bedsIcu}
@@ -144,7 +144,7 @@ export function BedUpdatePanel({ hospital }: { hospital: Hospital }) {
               icon={HeartPulse}
               colorClass="bg-purple-500"
             />
-            <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent mx-8" />
+            <div className="h-px bg-linear-to-r from-transparent via-border/50 to-transparent mx-8" />
             <NumberStepper
               name="bedsEmergency"
               value={bedsEmergency}
@@ -179,7 +179,7 @@ export function BedUpdatePanel({ hospital }: { hospital: Hospital }) {
             <Button
               type="submit"
               size="lg"
-              className="h-16 rounded-2xl bg-gradient-to-r from-secondary to-primary font-black text-xl text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-3"
+              className="h-16 rounded-2xl bg-linear-to-r from-secondary to-primary font-black text-xl text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-3"
               disabled={isPending}
             >
               {isPending ? (
