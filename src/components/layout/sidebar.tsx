@@ -41,17 +41,17 @@ export function Sidebar({ onAction }: { onAction?: () => void }) {
         </Link>
       </div>
 
-      <div className="px-5 py-6">
-        <div className="p-4 rounded-2xl bg-primary/5 border border-primary/5 mb-6">
-          <div className="font-bold text-foreground mb-1 line-clamp-1">
+      <div className="flex-1 overflow-y-auto custom-scrollbar px-5 py-4">
+        <div className="p-3 rounded-2xl bg-primary/5 border border-primary/10 mb-4">
+          <div className="font-bold text-foreground mb-1 line-clamp-1 text-sm">
             مستشفى دمنهور العام
           </div>
-          <div className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold text-primary uppercase tracking-wider">
+          <div className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-[9px] font-bold text-primary uppercase tracking-wider">
             مستشفى حكومي
           </div>
         </div>
 
-        <nav className="space-y-1">
+        <nav className="space-y-0.5">
           {navItems.map((item) => {
             const isActive =
               pathname === item.href ||
@@ -62,7 +62,7 @@ export function Sidebar({ onAction }: { onAction?: () => void }) {
                 href={item.href}
                 onClick={onAction}
                 className={cn(
-                  "group flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold transition-all duration-200",
+                  "group flex items-center justify-between rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-200",
                   isActive
                     ? "bg-primary text-white shadow-md shadow-primary/10"
                     : "text-muted-foreground hover:bg-primary/5 hover:text-primary",
@@ -88,14 +88,14 @@ export function Sidebar({ onAction }: { onAction?: () => void }) {
         </nav>
       </div>
 
-      <div className="mt-auto p-5 border-t border-border/50">
+      <div className="p-4 border-t border-border/50 bg-white">
         <form action="/api/auth/logout" method="POST">
           <button
             type="submit"
-            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-muted-foreground hover:bg-destructive/5 hover:text-destructive transition-all group"
+            className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-muted-foreground hover:bg-destructive/5 hover:text-destructive transition-all group"
           >
             <LogOut
-              size={20}
+              size={18}
               className="group-hover:rotate-12 transition-transform"
             />
             تسجيل الخروج
