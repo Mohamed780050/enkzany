@@ -63,8 +63,8 @@ export default function NotificationsPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto pb-20 px-4">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+    <div className="max-w-4xl mx-auto pb-20 px-4 md:px-0">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-10">
         <div>
           <h1 className="text-4xl font-black text-foreground tracking-tight mb-2">
             الإشعارات
@@ -75,7 +75,7 @@ export default function NotificationsPage() {
         </div>
         <Button
           variant="outline"
-          className="rounded-xl font-bold bg-white shadow-sm border-border/50 hover:bg-primary/5 hover:text-primary transition-all gap-2"
+          className="w-full sm:w-auto rounded-xl font-bold bg-white shadow-sm border-border/50 hover:bg-primary/5 hover:text-primary transition-all gap-2 h-12"
         >
           <CheckCheck size={18} />
           تحديد الكل كمقروء
@@ -99,39 +99,39 @@ export default function NotificationsPage() {
           notifications.map((n) => (
             <div
               key={n.id}
-              className={`group relative flex items-start gap-6 p-6 rounded-[2rem] transition-all border-none ${
+              className={`group relative flex flex-col sm:flex-row items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-[2rem] transition-all border-none ${
                 n.unread
                   ? "bg-white shadow-2xl shadow-primary/5 ring-1 ring-primary/10"
                   : "bg-zinc-50/50 opacity-80 hover:opacity-100 hover:bg-white hover:shadow-xl hover:shadow-zinc-200/50"
               }`}
             >
               {n.unread && (
-                <div className="absolute top-6 right-6 w-2.5 h-2.5 bg-primary rounded-full ring-4 ring-primary/20 animate-pulse" />
+                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 w-2.5 h-2.5 bg-primary rounded-full ring-4 ring-primary/20 animate-pulse" />
               )}
 
               <div
-                className={`shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner ${n.bg} ${n.color}`}
+                className={`shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shadow-inner ${n.bg} ${n.color}`}
               >
-                <n.icon size={28} />
+                <n.icon size={24} className="sm:w-7 sm:h-7" />
               </div>
 
-              <div className="flex-1 space-y-1 pr-2">
-                <div className="flex justify-between items-start gap-4">
+              <div className="flex-1 space-y-2 min-w-0">
+                <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-2">
                   <h3
-                    className={`text-xl font-black tracking-tight ${n.unread ? "text-foreground" : "text-muted-foreground"}`}
+                    className={`text-lg sm:text-xl font-black tracking-tight ${n.unread ? "text-foreground" : "text-muted-foreground"}`}
                   >
                     {n.title}
                   </h3>
-                  <span className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest bg-zinc-100 px-3 py-1 rounded-full">
+                  <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest bg-zinc-100 px-3 py-1 rounded-full whitespace-nowrap">
                     {n.time}
                   </span>
                 </div>
                 <p
-                  className={`text-lg leading-relaxed ${n.unread ? "text-foreground/80 font-bold" : "text-muted-foreground font-medium"}`}
+                  className={`text-base sm:text-lg leading-relaxed ${n.unread ? "text-foreground/80 font-bold" : "text-muted-foreground font-medium"}`}
                 >
                   {n.body}
                 </p>
-                <div className="pt-2 flex items-center gap-4">
+                <div className="pt-2 flex flex-wrap items-center gap-y-2 gap-x-4">
                   <Button
                     variant="link"
                     className="p-0 h-auto font-black text-xs text-primary/60 hover:text-primary hover:no-underline gap-1"
@@ -139,7 +139,7 @@ export default function NotificationsPage() {
                     عرض التفاصيل
                     <ShieldIcon size={14} />
                   </Button>
-                  <div className="h-1 w-1 bg-zinc-300 rounded-full" />
+                  <div className="hidden xs:block h-1 w-1 bg-zinc-300 rounded-full" />
                   <Button
                     variant="link"
                     className="p-0 h-auto font-black text-xs text-muted-foreground/60 hover:text-destructive hover:no-underline gap-1"
