@@ -39,7 +39,7 @@ function NumberStepper({
         <div
           className={`w-14 h-14 rounded-2xl ${colorClass} bg-opacity-10 flex items-center justify-center ${colorClass.replace("bg-", "text-")} shadow-inner group-hover/item:scale-105 transition-transform`}
         >
-          <Icon size={28} />
+          <Icon size={28} className="text-white"/>
         </div>
         <div>
           <div className="font-black text-xl text-foreground">{labelAr}</div>
@@ -179,7 +179,7 @@ export function BedUpdatePanel({ hospital }: { hospital: Hospital }) {
             <Button
               type="submit"
               size="lg"
-              className="h-16 rounded-2xl bg-gradient-to-r from-primary to-primary-600 font-black text-xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-3"
+              className="h-16 rounded-2xl bg-gradient-to-r from-secondary to-primary font-black text-xl text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-3"
               disabled={isPending}
             >
               {isPending ? (

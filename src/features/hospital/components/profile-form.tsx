@@ -175,7 +175,7 @@ export function ProfileForm({ hospital }: { hospital: Hospital }) {
                 <Button
                   type="submit"
                   size="lg"
-                  className="h-14 px-10 rounded-2xl text-lg font-black shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-2"
+                  className="h-14 px-10 w-full sm:w-auto rounded-2xl text-lg font-black bg-gradient-to-r from-secondary to-primary text-white hover:scale-[1.02] active:scale-95 transition-all gap-2"
                   disabled={isPending}
                 >
                   {isPending ? (

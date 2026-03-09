@@ -13,8 +13,8 @@ export function StatusBanner({ hospital }: { hospital: Hospital }) {
 
   let status = {
     label: "متاح بالكامل",
-    color: "bg-success text-white",
-    bgColor: "bg-success/5",
+    color: "bg-success text-white shadow-success/20",
+    bgColor: "bg-success/10",
     borderColor: "border-success/20",
     icon: CheckCircle2,
     subText: "المستشفى جاهز لاستقبال الحالات الجديدة",
@@ -23,8 +23,8 @@ export function StatusBanner({ hospital }: { hospital: Hospital }) {
   if (totalBeds === 0) {
     status = {
       label: "ممتلئ تماماً",
-      color: "bg-destructive text-white",
-      bgColor: "bg-destructive/5",
+      color: "bg-destructive text-white shadow-destructive/20",
+      bgColor: "bg-destructive/10",
       borderColor: "border-destructive/20",
       icon: XCircle,
       subText: "لا توجد أسرة شاغرة حالياً في كافة الأقسام",
@@ -32,8 +32,8 @@ export function StatusBanner({ hospital }: { hospital: Hospital }) {
   } else if (totalBeds < 5) {
     status = {
       label: "قدرة محدودة",
-      color: "bg-warning text-warning-foreground",
-      bgColor: "bg-warning/5",
+      color: "bg-warning text-white shadow-warning/20",
+      bgColor: "bg-warning/10",
       borderColor: "border-warning/20",
       icon: AlertTriangle,
       subText: "تنبيه: عدد الأسرة الشاغرة قليل جداً",

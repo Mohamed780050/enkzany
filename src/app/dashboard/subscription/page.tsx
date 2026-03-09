@@ -154,7 +154,7 @@ export default function SubscriptionPage() {
                   </div>
                 </Button>
               ) : (
-                <Button className="w-full h-16 rounded-2xl font-black text-xl shadow-2xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-300">
+                <Button className="w-full h-16 rounded-2xl font-black text-xl shadow-2xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-300 text-white">
                   بدء الترقية الآن
                 </Button>
               )}
