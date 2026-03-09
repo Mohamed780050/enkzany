@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { updateBedsAction, type BedUpdateState } from "../actions";
+import { updateBedsAction } from "../actions";
 import { Hospital } from "@/generated/prisma/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +11,7 @@ import {
   BedDouble,
   HeartPulse,
   Activity,
+  ArrowRight,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
@@ -22,6 +23,7 @@ function NumberStepper({
   labelAr,
   labelEn,
   icon: Icon,
+  colorClass,
 }: {
   value: number;
   onChange: (val: number) => void;
@@ -29,45 +31,54 @@ function NumberStepper({
   labelAr: string;
   labelEn: string;
   icon: any;
+  colorClass: string;
 }) {
   return (
-    <div className="flex items-center justify-between py-4 sm:px-4">
-      <div className="flex items-center gap-4">
-        <div className="hidden sm:flex w-12 h-12 rounded-full bg-primary/10 items-center justify-center text-primary">
-          <Icon size={24} />
+    <div className="flex items-center justify-between py-6 px-4 first:pt-4 last:pb-4 transition-colors hover:bg-zinc-50/50 group/item">
+      <div className="flex items-center gap-5">
+        <div
+          className={`w-14 h-14 rounded-2xl ${colorClass} bg-opacity-10 flex items-center justify-center ${colorClass.replace("bg-", "text-")} shadow-inner group-hover/item:scale-105 transition-transform`}
+        >
+          <Icon size={28} />
         </div>
         <div>
-          <div className="font-bold text-lg">{labelAr}</div>
-          <div className="text-sm text-muted-foreground">{labelEn}</div>
+          <div className="font-black text-xl text-foreground">{labelAr}</div>
+          <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+            {labelEn}
+          </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-3" dir="ltr">
+      <div className="flex items-center gap-4" dir="ltr">
         <Button
           type="button"
           variant="outline"
           size="icon"
-          className="w-12 h-12 rounded-full border-2 hover:bg-destructive/10 hover:text-destructive hover:border-destructive transition-colors shrink-0"
+          className="w-12 h-12 rounded-xl border-border bg-white hover:bg-destructive hover:text-white hover:border-destructive transition-all shrink-0 active:scale-90"
           onClick={() => onChange(Math.max(0, value - 1))}
           disabled={value <= 0}
         >
           <Minus size={20} />
         </Button>
 
-        <input
-          type="number"
-          name={name}
-          value={value}
-          onChange={(e) => onChange(Math.max(0, parseInt(e.target.value) || 0))}
-          className="w-16 h-12 text-center text-2xl font-bold bg-accent rounded-lg focus:outline-none focus:ring-2 focus:ring-primary shrink-0"
-          readOnly // Makes it easier for touch devices to avoid triggering keyboard unexpectedly, use steppers primarily
-        />
+        <div className="relative">
+          <input
+            type="number"
+            name={name}
+            value={value}
+            onChange={(e) =>
+              onChange(Math.max(0, parseInt(e.target.value) || 0))
+            }
+            className="w-20 h-14 text-center text-3xl font-black bg-zinc-100/50 rounded-2xl border-none focus:ring-4 focus:ring-primary/10 transition-all outline-none"
+            readOnly
+          />
+        </div>
 
         <Button
           type="button"
           variant="outline"
           size="icon"
-          className="w-12 h-12 rounded-full border-2 hover:bg-success/10 hover:text-success hover:border-success transition-colors shrink-0"
+          className="w-12 h-12 rounded-xl border-border bg-white hover:bg-success hover:text-white hover:border-success transition-all shrink-0 active:scale-90"
           onClick={() => onChange(value + 1)}
         >
           <Plus size={20} />
@@ -89,65 +100,98 @@ export function BedUpdatePanel({ hospital }: { hospital: Hospital }) {
   useEffect(() => {
     if (state?.success) {
       toast.success(state.message || "تم تحديث البيانات بنجاح");
-      // Add a slight green flash visual effect to the card could be handled via state
     } else if (state && !state.success) {
       toast.error(state.message || "حدث خطأ");
     }
   }, [state]);
 
-  const now = new Date();
-
   return (
-    <Card className="w-full shadow-md border-r-4 border-r-primary overflow-hidden">
+    <Card className="w-full shadow-2xl shadow-primary/5 border-none rounded-[2.5rem] overflow-hidden bg-white ring-1 ring-border/50">
       <CardContent className="p-0">
+        <div className="p-8 border-b border-border/50 bg-zinc-50/50 flex justify-between items-center">
+          <div>
+            <h3 className="text-2xl font-black text-foreground">
+              تحديث القدرة الاستيعابية
+            </h3>
+            <p className="text-muted-foreground font-medium">
+              قم بتعديل أعداد الأسرة المتاحة الآن
+            </p>
+          </div>
+          <div className="hidden sm:flex items-center gap-2 text-primary font-bold text-sm bg-primary/5 px-4 py-2 rounded-full border border-primary/10">
+            <Activity size={16} />
+            تحديث حي
+          </div>
+        </div>
+
         <form action={formAction} className="flex flex-col">
-          <div className="divide-y divide-border">
+          <div className="px-4 py-2">
             <NumberStepper
               name="bedsGeneral"
               value={bedsGeneral}
               onChange={setBedsGeneral}
-              labelAr="أسرة عامة"
-              labelEn="General Beds"
+              labelAr="الأسرة العامة"
+              labelEn="General Ward"
               icon={BedDouble}
+              colorClass="bg-blue-500"
             />
+            <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent mx-8" />
             <NumberStepper
               name="bedsIcu"
               value={bedsIcu}
               onChange={setBedsIcu}
-              labelAr="عناية مركزة"
-              labelEn="ICU Beds"
+              labelAr="العناية المركزة"
+              labelEn="ICU / CCU"
               icon={HeartPulse}
+              colorClass="bg-purple-500"
             />
+            <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent mx-8" />
             <NumberStepper
               name="bedsEmergency"
               value={bedsEmergency}
               onChange={setBedsEmergency}
-              labelAr="طوارئ"
-              labelEn="Emergency Beds"
+              labelAr="قسم الطوارئ"
+              labelEn="Emergency / ER"
               icon={Activity}
+              colorClass="bg-red-500"
             />
           </div>
 
-          <div className="bg-accent/30 p-6 flex flex-col sm:flex-row items-center justify-between border-t border-border mt-2 gap-4">
-            <div className="text-xl font-bold text-primary flex items-center gap-2">
-              <span>المجموع الكلي:</span>
-              <span className="text-2xl">{total}</span>
-              <span>سرير متاح</span>
+          <div className="bg-zinc-100/50 p-8 flex flex-col lg:flex-row items-center justify-between border-t border-border/50 gap-6 mt-4">
+            <div className="flex items-center gap-6">
+              <div className="relative">
+                <div className="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center">
+                  <span className="text-3xl font-black text-primary leading-none">
+                    {total}
+                  </span>
+                </div>
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-success rounded-full border-4 border-white" />
+              </div>
+              <div>
+                <div className="text-xl font-black text-foreground leading-tight">
+                  إجمالي الأسرة
+                </div>
+                <div className="text-muted-foreground font-bold">
+                  المتاحة في كافة الأقسام
+                </div>
+              </div>
             </div>
 
             <Button
               type="submit"
               size="lg"
-              className="w-full sm:w-1/3 h-14 text-xl font-bold shadow-lg"
+              className="w-full lg:w-72 h-16 text-xl font-black rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-3"
               disabled={isPending}
             >
               {isPending ? (
                 <>
-                  <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+                  <Loader2 className="h-6 w-6 animate-spin" />
                   جاري التحديث...
                 </>
               ) : (
-                "تحديث الآن / Update Now"
+                <>
+                  تحديث البيانات
+                  <ArrowRight size={20} className="rotate-180" />
+                </>
               )}
             </Button>
           </div>

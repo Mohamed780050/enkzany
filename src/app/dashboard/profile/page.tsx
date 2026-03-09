@@ -18,9 +18,19 @@ export default async function ProfilePage() {
   if (!hospital) return <div>Data error</div>;
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto pb-12">
-      <h1 className="text-3xl font-bold text-primary mb-6">ملف المستشفى</h1>
-      <ProfileForm hospital={hospital} />
+    <div className="space-y-8 max-w-4xl mx-auto pb-20">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-4xl font-black text-foreground tracking-tight">
+          ملف المستشفى
+        </h1>
+        <p className="text-muted-foreground font-medium text-lg">
+          إدارة البيانات التعريفية والتواصل الخاصة بالمستشفى
+        </p>
+      </div>
+
+      <div className="bg-white rounded-[2.5rem] p-4 shadow-2xl shadow-primary/5 ring-1 ring-border/50">
+        <ProfileForm hospital={hospital} />
+      </div>
     </div>
   );
 }

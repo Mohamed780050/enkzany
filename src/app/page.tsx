@@ -71,7 +71,7 @@ export default function LandingPage() {
             className="object-cover opacity-10"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-white" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-white/90 z-0" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center lg:text-right flex flex-col lg:flex-row items-center gap-16">
