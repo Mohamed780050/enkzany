@@ -22,11 +22,11 @@ const navItems = [
   { href: "/dashboard/subscription", icon: CreditCard, label: "الاشتراك" },
 ];
 
-export function Sidebar() {
+export function Sidebar({ onAction }: { onAction?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed inset-y-0 right-0 z-40 hidden w-64 flex-col bg-white border-l border-border md:flex shadow-sm">
+    <aside className="flex h-full w-full flex-col bg-white border-l border-border shadow-sm">
       <div className="flex h-20 items-center px-6 border-b border-border/50">
         <Link
           href="/dashboard"
@@ -60,6 +60,7 @@ export function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={onAction}
                 className={cn(
                   "group flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold transition-all duration-200",
                   isActive

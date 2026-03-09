@@ -19,7 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className="scroll-smooth">
+    <html
+      lang="ar"
+      dir="rtl"
+      className="scroll-smooth"
+      suppressHydrationWarning
+    >
       <body className={`${ibmPlexSansArabic.variable} font-sans antialiased`}>
         {children}
       </body>

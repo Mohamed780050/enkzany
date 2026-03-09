@@ -16,50 +16,12 @@ import {
   Stethoscope,
   HeartPlus,
 } from "lucide-react";
+import { LandingNav } from "@/components/layout/landing-nav";
 
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen selection:bg-primary/20">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-border/40">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
-              <Activity size={24} />
-            </div>
-            <span className="text-2xl font-bold tracking-tight text-primary">
-              إنقذني
-            </span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
-            <a
-              href="#how-it-works"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              كيف يعمل؟
-            </a>
-            <a
-              href="#features"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              المميزات
-            </a>
-            <a
-              href="#faq"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              الأسئلة الشائعة
-            </a>
-          </div>
-
-          <Link href="/login">
-            <Button className="rounded-full px-6 font-bold shadow-md hover:shadow-lg transition-all">
-              تسجيل الدخول / Login
-            </Button>
-          </Link>
-        </div>
-      </nav>
+      <LandingNav />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
@@ -71,7 +33,7 @@ export default function LandingPage() {
             className="object-cover opacity-10"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-white/90 z-0" />
+          <div className="absolute inset-0 bg-linear-to-b from-white/20 to-white/90 z-0" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center lg:text-right flex flex-col lg:flex-row items-center gap-16">

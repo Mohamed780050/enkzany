@@ -145,7 +145,7 @@ export function ProfileForm({ hospital }: { hospital: Hospital }) {
                     نوع الجهة
                   </Label>
                   <div className="flex items-center gap-3 h-14 bg-zinc-50 rounded-2xl p-1.5 border-none">
-                    <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer h-full rounded-xl transition-all has-[:checked]:bg-white has-[:checked]:shadow-sm has-[:checked]:text-primary text-muted-foreground font-bold hover:text-foreground">
+                    <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer h-full rounded-xl transition-all has-checked:bg-white has-checked:shadow-sm has-checked:text-primary text-muted-foreground font-bold hover:text-foreground">
                       <input
                         type="radio"
                         name="type"
@@ -157,7 +157,7 @@ export function ProfileForm({ hospital }: { hospital: Hospital }) {
                       />
                       <span>حكومي / General</span>
                     </label>
-                    <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer h-full rounded-xl transition-all has-[:checked]:bg-white has-[:checked]:shadow-sm has-[:checked]:text-primary text-muted-foreground font-bold hover:text-foreground">
+                    <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer h-full rounded-xl transition-all has-checked:bg-white has-checked:shadow-sm has-checked:text-primary text-muted-foreground font-bold hover:text-foreground">
                       <input
                         type="radio"
                         name="type"
@@ -254,7 +254,7 @@ export function ProfileForm({ hospital }: { hospital: Hospital }) {
             </div>
 
             <div className="pt-6 border-t border-destructive/10">
-              <div className="p-4 rounded-2xl bg-destructive/[0.03] border border-destructive/10">
+              <div className="p-4 rounded-2xl bg-destructive/3 border border-destructive/10">
                 <div className="flex items-center gap-2 text-destructive font-black text-xs mb-2">
                   <ShieldAlert size={14} />
                   منطقة الخطر

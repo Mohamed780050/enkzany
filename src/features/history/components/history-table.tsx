@@ -1,15 +1,7 @@
 import { UpdateHistory } from "@/generated/prisma/client";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { Clock, Calendar, User } from "lucide-react";
 import Link from "next/link";
-import { ArrowLeft, Clock, User, Calendar } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export function HistoryTable({ history }: { history: UpdateHistory[] }) {
   if (history.length === 0) {
@@ -54,91 +46,78 @@ export function HistoryTable({ history }: { history: UpdateHistory[] }) {
         </Link>
       </div>
 
-      <div className="rounded-[2rem] border border-border/50 bg-white overflow-hidden shadow-sm ring-1 ring-border/5">
-        <Table>
-          <TableHeader className="bg-zinc-50/80">
-            <TableRow className="hover:bg-transparent border-b border-border/50">
-              <TableHead className="h-14 text-foreground font-black text-right px-6">
-                التاريخ والوقت
-              </TableHead>
-              <TableHead className="h-14 text-foreground font-black text-center">
-                عامة
-              </TableHead>
-              <TableHead className="h-14 text-foreground font-black text-center">
-                مركزة
-              </TableHead>
-              <TableHead className="h-14 text-foreground font-black text-center">
-                طوارئ
-              </TableHead>
-              <TableHead className="h-14 text-foreground font-black text-center bg-zinc-100/30">
-                المجموع
-              </TableHead>
-              <TableHead className="h-14 text-foreground font-black text-left px-6">
-                الباحث
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {history.map((record, i) => {
-              const total =
-                record.bedsGeneral + record.bedsIcu + record.bedsEmergency;
-              const date = new Date(record.updatedAt);
-              const timeFormatted = date.toLocaleTimeString("ar-EG", {
-                hour: "2-digit",
-                minute: "2-digit",
-              });
-              const dateFormatted = date.toLocaleDateString("ar-EG");
-
-              return (
-                <TableRow
-                  key={record.id}
-                  className="group hover:bg-zinc-50/50 transition-colors border-b border-border/30 last:border-0"
-                >
-                  <TableCell className="px-6 py-5">
-                    <div className="flex flex-col">
-                      <span className="font-black text-foreground text-sm">
-                        {timeFormatted}
-                      </span>
-                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                        {dateFormatted}
-                      </span>
+      <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
+        <table className="w-full text-right border-separate border-spacing-y-3">
+          <thead>
+            <tr className="text-muted-foreground text-sm uppercase tracking-wider">
+              <th className="font-black pb-4 pr-6">بواسطة</th>
+              <th className="font-black pb-4 px-4 text-center">المجموع</th>
+              <th className="font-black pb-4 px-4 text-center">طوارئ</th>
+              <th className="font-black pb-4 px-4 text-center">عناية</th>
+              <th className="font-black pb-4 px-4 text-center">عامة</th>
+              <th className="font-black pb-4 pl-6 text-left">التاريخ والوقت</th>
+            </tr>
+          </thead>
+          <tbody>
+            {history.map((item) => (
+              <tr
+                key={item.id}
+                className="group bg-white hover:bg-zinc-50 transition-colors shadow-sm"
+              >
+                <td className="py-5 pr-6 rounded-r-3xl border-y border-r border-border/40 group-hover:border-primary/20 transition-colors">
+                  <div className="flex items-center gap-3 min-w-[140px]">
+                    <div className="w-10 h-10 rounded-xl bg-primary/5 text-primary flex items-center justify-center font-bold shadow-inner shrink-0">
+                      {item.updatedBy[0].toUpperCase()}
                     </div>
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-blue-50 text-blue-700 font-black">
-                      {record.bedsGeneral}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-purple-50 text-purple-700 font-black">
-                      {record.bedsIcu}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-red-50 text-red-700 font-black">
-                      {record.bedsEmergency}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-center bg-zinc-100/30">
-                    <span className="text-lg font-black text-foreground">
-                      {total}
-                    </span>
-                  </TableCell>
-                  <TableCell className="px-6 py-5 text-left">
-                    <div className="flex items-center gap-2 justify-end">
-                      <span className="text-xs font-black text-foreground">
-                        {record.updatedBy}
-                      </span>
-                      <div className="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-500">
-                        <User size={14} />
+                    <div>
+                      <div className="font-black text-foreground whitespace-nowrap">
+                        {item.updatedBy}
+                      </div>
+                      <div className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
+                        مسئول النظام
                       </div>
                     </div>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+                  </div>
+                </td>
+                <td className="py-5 px-4 text-center border-y border-border/40 group-hover:border-primary/20 transition-colors">
+                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-100 font-black text-foreground shadow-sm">
+                    {item.bedsGeneral + item.bedsIcu + item.bedsEmergency}
+                  </span>
+                </td>
+                <td className="py-5 px-4 text-center border-y border-border/40 group-hover:border-primary/20 transition-colors">
+                  <span className="font-black text-warning bg-warning/5 px-3 py-1 rounded-lg border border-warning/10">
+                    {item.bedsEmergency}
+                  </span>
+                </td>
+                <td className="py-5 px-4 text-center border-y border-border/40 group-hover:border-primary/20 transition-colors">
+                  <span className="font-black text-success bg-success/5 px-3 py-1 rounded-lg border border-success/10">
+                    {item.bedsIcu}
+                  </span>
+                </td>
+                <td className="py-5 px-4 text-center border-y border-border/40 group-hover:border-primary/20 transition-colors">
+                  <span className="font-black text-primary bg-primary/5 px-3 py-1 rounded-lg border border-primary/10">
+                    {item.bedsGeneral}
+                  </span>
+                </td>
+                <td className="py-5 pl-6 text-left rounded-l-3xl border-y border-l border-border/40 group-hover:border-primary/20 transition-colors min-w-[140px]">
+                  <div className="font-bold text-foreground whitespace-nowrap">
+                    {new Date(item.updatedAt).toLocaleTimeString("ar-EG", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </div>
+                  <div className="text-[10px] text-muted-foreground font-medium whitespace-nowrap">
+                    {new Date(item.updatedAt).toLocaleDateString("ar-EG", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

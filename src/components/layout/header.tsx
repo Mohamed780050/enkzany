@@ -1,13 +1,18 @@
-import { User, Bell, Search } from "lucide-react";
+import { User, Bell, Search, Menu, Activity } from "lucide-react";
 
-export function Header() {
+export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
   return (
     <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between border-b border-border/50 bg-white/80 backdrop-blur-md px-8 shadow-sm">
       <div className="flex items-center gap-6">
-        {/* Mobile menu button could go here */}
-        <div className="flex items-center gap-3 md:hidden">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-            <span className="font-bold text-sm">إن</span>
+        <div className="flex items-center gap-3 md:hidden leading-none">
+          <button
+            onClick={onMenuClick}
+            className="p-2 -mr-2 text-muted-foreground hover:text-primary transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0">
+            <Activity size={18} />
           </div>
         </div>
         <h1 className="hidden md:block font-extrabold text-xl text-foreground tracking-tight">

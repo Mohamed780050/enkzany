@@ -179,7 +179,7 @@ export function BedUpdatePanel({ hospital }: { hospital: Hospital }) {
             <Button
               type="submit"
               size="lg"
-              className="w-full lg:w-72 h-16 text-xl font-black rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-3"
+              className="h-16 rounded-2xl bg-gradient-to-r from-primary to-primary-600 font-black text-xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all gap-3"
               disabled={isPending}
             >
               {isPending ? (
