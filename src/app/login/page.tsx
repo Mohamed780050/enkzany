@@ -52,9 +52,9 @@ export default function LoginPage() {
           src="/images/hero-bg.png"
           alt="Hospital Admin"
           fill
-          className="object-cover opacity-20 grayscale brightness-50"
+          className="object-cover opacity-40 brightness-75 transition-opacity duration-700"
         />
-        <div className="absolute inset-0 bg-linear-to-br from-primary via-primary/80 to-secondary/40" />
+        <div className="absolute inset-0 bg-linear-to-br from-primary/80 via-primary/60 to-secondary/40" />
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-16 text-right">
           <div className="space-y-6 max-w-md">

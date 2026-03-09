@@ -30,10 +30,10 @@ export default function LandingPage() {
             src="/images/hero-bg.png"
             alt="Hospital Background"
             fill
-            className="object-cover opacity-10"
+            className="object-cover opacity-50"
             priority
           />
-          <div className="absolute inset-0 bg-linear-to-b from-white/20 to-white/90 z-0" />
+          <div className="absolute inset-0 bg-linear-to-b from-white/10 via-white/50 to-white z-0" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center lg:text-right flex flex-col lg:flex-row items-center gap-16">
