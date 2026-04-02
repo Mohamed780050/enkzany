@@ -1,7 +1,7 @@
 import { LoginForm } from "@/features/auth/components/login-form";
 import Image from "next/image";
 import Link from "next/link";
-import { Activity } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
 
 export const metadata = {
   title: "تسجيل الدخول - إنقذني",
@@ -18,12 +18,8 @@ export default function LoginPage() {
               href="/"
               className="flex items-center gap-3 mb-4 group transition-transform hover:scale-105"
             >
-              <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white shadow-xl shadow-primary/20">
-                <Activity size={28} />
-              </div>
-              <span className="text-3xl font-black tracking-tight text-primary">
-                إنقذني
-              </span>
+              <Logo className="w-24 h-24" />
+
             </Link>
             <h1 className="text-4xl font-black text-foreground">
               مرحباً بك مجدداً
@@ -58,9 +54,8 @@ export default function LoginPage() {
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-16 text-right">
           <div className="space-y-6 max-w-md">
-            <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-3xl flex items-center justify-center border border-white/20 mb-8">
-              <Activity size={40} className="text-white" />
-            </div>
+            <Logo className="w-20 h-20 mb-8 drop-shadow-2xl" />
+
             <h2 className="text-5xl font-black leading-tight">
               شريكك الموثوق في إدارة الكوارث والأزمات
             </h2>

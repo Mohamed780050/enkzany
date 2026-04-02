@@ -13,6 +13,7 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/ui/logo";
 
 const navItems = [
   { href: "/dashboard", icon: Home, label: "الرئيسية" },
@@ -27,17 +28,14 @@ export function Sidebar({ onAction }: { onAction?: () => void }) {
 
   return (
     <aside className="flex h-full w-full flex-col bg-white border-l border-border shadow-sm">
-      <div className="flex h-20 items-center px-6 border-b border-border/50">
+      <div className="flex h-28 justify-center items-center px-6 border-b border-border/50">
         <Link
           href="/dashboard"
           className="flex items-center gap-3 hover:opacity-80 transition-opacity"
         >
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
-            <Activity size={24} />
-          </div>
-          <span className="text-2xl font-bold tracking-tight text-primary">
-            إنقذني
-          </span>
+          <Logo className="w-28 h-28" />
+
+          
         </Link>
       </div>
 

@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
-  Activity,
   ArrowLeft,
   CheckCircle2,
   Clock,
@@ -17,6 +16,7 @@ import {
   HeartPlus,
 } from "lucide-react";
 import { LandingNav } from "@/components/layout/landing-nav";
+import { Logo } from "@/components/ui/logo";
 
 export default function LandingPage() {
   return (
@@ -362,9 +362,8 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
           <div className="md:col-span-1 space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-                <Activity size={18} />
-              </div>
+              <Logo className="w-16 h-16" />
+
               <span className="text-xl font-bold text-primary">إنقذني</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">

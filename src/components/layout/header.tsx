@@ -1,4 +1,5 @@
-import { User, Bell, Search, Menu, Activity } from "lucide-react";
+import { User, Bell, Search, Menu } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
 
 export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
   return (
@@ -11,9 +12,8 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
           >
             <Menu size={24} />
           </button>
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0">
-            <Activity size={18} />
-          </div>
+          <Logo className="w-16 h-16 shrink-0" />
+
         </div>
         <h1 className="hidden md:block font-extrabold text-xl text-foreground tracking-tight">
           لوحة التحكم

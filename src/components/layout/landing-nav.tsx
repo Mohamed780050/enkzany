@@ -3,8 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/ui/logo";
+import { Menu, X } from "lucide-react";
 
 export function LandingNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,12 +20,9 @@ export function LandingNav() {
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-border/40">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
-            <Activity size={24} />
-          </div>
-          <span className="text-2xl font-bold tracking-tight text-primary">
-            إنقذني
-          </span>
+          <Logo className="w-24 h-24" />
+
+         
         </div>
 
         {/* Desktop Links */}
