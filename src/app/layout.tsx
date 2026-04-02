@@ -11,6 +11,9 @@ const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
 export const metadata: Metadata = {
   title: "إنقذني - Enkzany",
   description: "إدارة توفر الأسرة في الوقت الفعلي",
+  icons:{
+    icon:"/favicon.svg"
+  }
 };
 
 export default function RootLayout({
