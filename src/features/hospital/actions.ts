@@ -19,6 +19,15 @@ export async function updateProfileAction(
     return { success: false, message: "غير مصرح لك" };
   }
 
+  // Find the hospital owned by this user
+  const hospital = await prisma.hospital.findFirst({
+    where: { adminId: session.user.id },
+  });
+
+  if (!hospital) {
+    return { success: false, message: "لم يتم العثور على المستشفى" };
+  }
+
   const nameAr = formData.get("nameAr") as string;
   const nameEn = formData.get("nameEn") as string;
   const address = formData.get("address") as string;
@@ -27,7 +36,7 @@ export async function updateProfileAction(
 
   try {
     await prisma.hospital.update({
-      where: { id: session.hospitalId },
+      where: { id: hospital.id },
       data: {
         nameAr,
         nameEn,
@@ -40,7 +49,6 @@ export async function updateProfileAction(
     revalidatePath("/dashboard/profile");
     revalidatePath("/dashboard");
 
-    // Simulate approval process for demo
     return {
       success: true,
       message: "تم إرسال التغييرات للمراجعة وستظهر خلال 24 ساعة",

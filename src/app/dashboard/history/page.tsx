@@ -22,10 +22,16 @@ export default async function HistoryPage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
+  const hospital = await prisma.hospital.findFirst({
+    where: { adminId: session.user.id },
+  });
+
+  if (!hospital) redirect("/dashboard");
+
   const history = await prisma.updateHistory.findMany({
-    where: { hospitalId: session.hospitalId },
+    where: { hospitalId: hospital.id },
     orderBy: { updatedAt: "desc" },
-    take: 50, // Mock pagination for demo
+    take: 50,
   });
 
   return (

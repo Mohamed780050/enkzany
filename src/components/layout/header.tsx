@@ -1,7 +1,12 @@
+"use client";
+
 import { User, Bell, Search, Menu } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
+import { useSession } from "@/lib/auth-client";
 
 export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
+  const { data: session } = useSession();
+
   return (
     <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between border-b border-border/50 bg-white/80 backdrop-blur-md px-8 shadow-sm">
       <div className="flex items-center gap-6">
@@ -13,7 +18,6 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
             <Menu size={24} />
           </button>
           <Logo className="w-16 h-16 shrink-0" />
-
         </div>
         <h1 className="hidden md:block font-extrabold text-xl text-foreground tracking-tight">
           لوحة التحكم
@@ -42,14 +46,22 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
 
         <div className="flex items-center gap-3 group cursor-pointer p-1 pr-3 rounded-full hover:bg-zinc-100 transition-all border border-transparent hover:border-border/40">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary font-bold shadow-inner">
-            <User size={20} />
+            {session?.user?.image ? (
+              <img
+                src={session.user.image}
+                alt={session.user.name}
+                className="w-full h-full rounded-full object-cover"
+              />
+            ) : (
+              <User size={20} />
+            )}
           </div>
           <div className="hidden sm:flex flex-col text-right">
             <span className="text-sm font-bold text-foreground leading-none">
-              مدير النظام
+              {session?.user?.name || "مستخدم"}
             </span>
             <span className="text-[10px] text-muted-foreground font-medium">
-              مشغل الخدمة
+              {session?.user?.email || ""}
             </span>
           </div>
         </div>

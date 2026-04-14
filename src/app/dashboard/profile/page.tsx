@@ -11,8 +11,8 @@ export default async function ProfilePage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
-  const hospital = await prisma.hospital.findUnique({
-    where: { id: session.hospitalId },
+  const hospital = await prisma.hospital.findFirst({
+    where: { adminId: session.user.id },
   });
 
   if (!hospital) return <div>Data error</div>;

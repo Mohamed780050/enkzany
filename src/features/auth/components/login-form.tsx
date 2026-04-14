@@ -1,26 +1,104 @@
 "use client";
 
-import { useActionState } from "react";
-import { loginAction } from "../actions";
+import { useState } from "react";
+import { signIn, signUp } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AlertCircle, Loader2, Mail, Lock } from "lucide-react";
+import { AlertCircle, Loader2, Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
-  const [state, formAction, isPending] = useActionState(loginAction, null);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setIsPending(true);
+
+    try {
+      if (isSignUp) {
+        const { error: signUpError } = await signUp.email({
+          email,
+          password,
+          name,
+        }, {
+          onSuccess: () => {
+            router.push("/dashboard");
+            router.refresh();
+          },
+          onError: (ctx) => {
+            setError(ctx.error.message || "حدث خطأ أثناء إنشاء الحساب");
+          },
+        });
+        if (signUpError) {
+          setError(signUpError.message || "حدث خطأ أثناء إنشاء الحساب");
+        }
+      } else {
+        const { error: signInError } = await signIn.email({
+          email,
+          password,
+        }, {
+          onSuccess: () => {
+            router.push("/dashboard");
+            router.refresh();
+          },
+          onError: (ctx) => {
+            setError(ctx.error.message || "البريد الإلكتروني أو كلمة المرور غير صحيحة");
+          },
+        });
+        if (signInError) {
+          setError(signInError.message || "البريد الإلكتروني أو كلمة المرور غير صحيحة");
+        }
+      }
+    } catch {
+      setError("حدث خطأ غير متوقع. حاول مرة أخرى.");
+    } finally {
+      setIsPending(false);
+    }
+  }
 
   return (
-    <form action={formAction} className="p-8 space-y-6">
-      {state?.message && (
+    <form onSubmit={handleSubmit} className="p-8 space-y-6">
+      {error && (
         <div className="flex items-center gap-3 rounded-2xl bg-destructive/10 p-4 text-destructive border border-destructive/20 animate-in fade-in slide-in-from-top-2">
           <AlertCircle size={20} />
-          <p className="text-sm font-bold">{state.message}</p>
+          <p className="text-sm font-bold">{error}</p>
         </div>
       )}
 
       <div className="space-y-5">
+        {isSignUp && (
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-foreground/80 font-bold mr-1">
+              الاسم الكامل
+            </Label>
+            <div className="relative group">
+              <User
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors"
+                size={18}
+              />
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="أدخل اسمك الكامل"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="h-14 pr-12 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+              />
+            </div>
+          </div>
+        )}
+
         <div className="space-y-2">
           <Label htmlFor="email" className="text-foreground/80 font-bold mr-1">
             البريد الإلكتروني
@@ -36,15 +114,11 @@ export function LoginForm() {
               type="email"
               placeholder="admin@hospital.com"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="h-14 pr-12 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-              defaultValue="admin@hospital.com"
             />
           </div>
-          {state?.errors?.email && (
-            <p className="text-xs text-destructive mt-1 mr-1 font-medium">
-              {state.errors.email[0]}
-            </p>
-          )}
         </div>
 
         <div className="space-y-2">
@@ -56,13 +130,15 @@ export function LoginForm() {
             >
               كلمة المرور
             </Label>
-            <Link
-              href="/forgot-password"
-              title="forgot-password"
-              className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors"
-            >
-              نسيت كلمة المرور؟
-            </Link>
+            {!isSignUp && (
+              <Link
+                href="/forgot-password"
+                title="forgot-password"
+                className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors"
+              >
+                نسيت كلمة المرور؟
+              </Link>
+            )}
           </div>
           <div className="relative group">
             <Lock
@@ -75,15 +151,12 @@ export function LoginForm() {
               type="password"
               placeholder="••••••••"
               required
+              minLength={8}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="h-14 pr-12 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-              defaultValue="admin123"
             />
           </div>
-          {state?.errors?.password && (
-            <p className="text-xs text-destructive mt-1 mr-1 font-medium">
-              {state.errors.password[0]}
-            </p>
-          )}
         </div>
       </div>
 
@@ -95,8 +168,10 @@ export function LoginForm() {
         {isPending ? (
           <>
             <Loader2 className="ml-2 h-5 w-5 animate-spin" />
-            جاري تسجيل الدخول...
+            {isSignUp ? "جاري إنشاء الحساب..." : "جاري تسجيل الدخول..."}
           </>
+        ) : isSignUp ? (
+          "إنشاء حساب جديد"
         ) : (
           "تسجيل الدخول"
         )}
@@ -108,29 +183,22 @@ export function LoginForm() {
         </div>
         <div className="relative flex justify-center text-xs uppercase">
           <span className="bg-white px-3 text-muted-foreground font-bold">
-            أو الدخول التجريبي
+            {isSignUp ? "لديك حساب بالفعل؟" : "ليس لديك حساب؟"}
           </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="p-4 rounded-2xl border bg-zinc-50 text-center space-y-1 group hover:border-primary/30 cursor-pointer transition-all">
-          <div className="text-[10px] font-bold text-muted-foreground uppercase">
-            دخول ممرض
-          </div>
-          <div className="text-xs font-black text-foreground group-hover:text-primary">
-            بسرعة فائقة
-          </div>
-        </div>
-        <div className="p-4 rounded-2xl border bg-zinc-50 text-center space-y-1 group hover:border-primary/30 cursor-pointer transition-all">
-          <div className="text-[10px] font-bold text-muted-foreground uppercase">
-            دخول مسئول
-          </div>
-          <div className="text-xs font-black text-foreground group-hover:text-primary">
-            صلاحيات كاملة
-          </div>
-        </div>
-      </div>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => {
+          setIsSignUp(!isSignUp);
+          setError(null);
+        }}
+        className="h-12 w-full rounded-2xl text-md font-bold border-2 hover:bg-primary/5 transition-all"
+      >
+        {isSignUp ? "تسجيل الدخول بحساب موجود" : "إنشاء حساب جديد"}
+      </Button>
     </form>
   );
 }

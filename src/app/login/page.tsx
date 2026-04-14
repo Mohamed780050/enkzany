@@ -34,9 +34,9 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-sm text-muted-foreground">
-            ليس لديك حساب؟{" "}
+            بتسجيلك، أنت توافق على{" "}
             <Link href="#" className="font-bold text-primary hover:underline">
-              اطلب انضمام مستشفى
+              شروط الاستخدام
             </Link>
           </p>
         </div>

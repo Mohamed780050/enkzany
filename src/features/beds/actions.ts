@@ -19,6 +19,15 @@ export async function updateBedsAction(
     return { success: false, message: "غير مصرح لك" };
   }
 
+  // Find the hospital owned by this user
+  const hospital = await prisma.hospital.findFirst({
+    where: { adminId: session.user.id },
+  });
+
+  if (!hospital) {
+    return { success: false, message: "لم يتم العثور على المستشفى" };
+  }
+
   const bedsGeneral = parseInt(
     (formData.get("bedsGeneral") as string) || "0",
     10,
@@ -36,7 +45,7 @@ export async function updateBedsAction(
   try {
     // Update the hospital
     await prisma.hospital.update({
-      where: { id: session.hospitalId },
+      where: { id: hospital.id },
       data: {
         bedsGeneral,
         bedsIcu,
@@ -48,11 +57,11 @@ export async function updateBedsAction(
     // Add to history
     await prisma.updateHistory.create({
       data: {
-        hospitalId: session.hospitalId,
+        hospitalId: hospital.id,
         bedsGeneral,
         bedsIcu,
         bedsEmergency,
-        updatedBy: session.role === "admin" ? "Admin" : "Nurse",
+        updatedBy: session.user.name || "Admin",
       },
     });
 

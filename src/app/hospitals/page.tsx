@@ -52,7 +52,7 @@ export default async function HospitalsPage() {
       </section>
 
       {/* Main Content */}
-      <main className="flex-grow w-full px-6 pb-24 -mt-4 relative z-20 max-w-7xl mx-auto">
+      <main className="grow w-full px-6 pb-24 -mt-4 relative z-20 max-w-7xl mx-auto">
         <HospitalsClient initialHospitals={hospitals} />
       </main>
 
