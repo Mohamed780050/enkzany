@@ -20,7 +20,6 @@ import { useState } from "react";
 
 const navItems = [
   { href: "/dashboard", icon: Home, label: "الرئيسية" },
-  { href: "/dashboard/add-hospital", icon: PlusCircle, label: "إضافة مستشفى" },
   { href: "/dashboard/history", icon: History, label: "سجل التحديثات" },
   { href: "/dashboard/profile", icon: Building2, label: "ملف المستشفى" },
   { href: "/dashboard/notifications", icon: Bell, label: "الإشعارات" },

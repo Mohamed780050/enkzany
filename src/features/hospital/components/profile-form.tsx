@@ -36,8 +36,8 @@ export function ProfileForm({ hospital }: { hospital: Hospital }) {
   }, [state]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-      <div className="lg:col-span-2 space-y-8">
+    <div className="max-w-3xl mx-auto items-start">
+      <div className="space-y-8">
         <form action={formAction} className="space-y-8">
           <Card className="border-none ring-0 shadow-none bg-transparent">
             <CardHeader className="px-0 pt-0">
@@ -223,91 +223,6 @@ export function ProfileForm({ hospital }: { hospital: Hospital }) {
             </CardContent>
           </Card>
         </form>
-      </div>
-
-      <div className="space-y-8">
-        <Card className="border-none ring-0 shadow-xl shadow-zinc-200/50 rounded-[2.5rem] bg-zinc-50/50">
-          <CardHeader className="pb-4">
-            <div className="flex items-center gap-2 text-primary font-black text-sm uppercase tracking-widest mb-2">
-              <Settings2 size={16} />
-              أمان الحساب
-            </div>
-            <CardTitle className="text-xl font-black">إعدادات الدخول</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <Label className="text-muted-foreground font-bold text-xs px-1">
-                البريد الإلكتروني الحالي
-              </Label>
-              <div
-                className="flex items-center gap-3 p-4 bg-white rounded-2xl border-none shadow-sm"
-                dir="ltr"
-              >
-                <Mail className="text-primary" size={18} />
-                <span className="font-bold text-foreground overflow-hidden text-ellipsis">
-                  {hospital.email}
-                </span>
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-border/10">
-              <div className="flex items-center gap-2 mb-4">
-                <Lock size={16} className="text-muted-foreground" />
-                <h4 className="font-black text-foreground">
-                  تغيير كلمة المرور
-                </h4>
-              </div>
-              <div className="space-y-4">
-                <div className="space-y-2 text-right">
-                  <Label className="text-xs font-bold text-muted-foreground px-1">
-                    كلمة المرور الحالية
-                  </Label>
-                  <Input
-                    type="password"
-                    placeholder="••••••••"
-                    className="h-12 rounded-xl border-border bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                  />
-                </div>
-                <div className="space-y-2 text-right">
-                  <Label className="text-xs font-bold text-muted-foreground px-1">
-                    كلمة المرور الجديدة
-                  </Label>
-                  <Input
-                    type="password"
-                    placeholder="••••••••"
-                    className="h-12 rounded-xl border-border bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                  />
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                className="w-full h-12 mt-6 rounded-xl font-black border-2 border-primary/20 hover:border-primary hover:bg-primary/5 text-primary transition-all"
-              >
-                تحديث أمان الحساب
-              </Button>
-            </div>
-
-            <div className="pt-6 border-t border-destructive/10">
-              <div className="p-4 rounded-2xl bg-destructive/3 border border-destructive/10">
-                <div className="flex items-center gap-2 text-destructive font-black text-xs mb-2">
-                  <ShieldAlert size={14} />
-                  منطقة الخطر
-                </div>
-                <Button
-                  variant="destructive"
-                  className="w-full h-11 rounded-xl font-black shadow-lg shadow-destructive/10 opacity-50 cursor-not-allowed"
-                  disabled
-                >
-                  تعطيل حساب المستشفى
-                </Button>
-                <p className="text-[10px] text-muted-foreground mt-2 text-center leading-relaxed font-medium">
-                  يرجى التواصل مع الإدارة الفنية لإتمام عملية الحذف النهائي
-                  للبيانات.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

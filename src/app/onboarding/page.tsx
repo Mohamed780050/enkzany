@@ -61,14 +61,7 @@ export default function AddHospitalPage() {
 
   return (
     <div className="max-w-2xl mx-auto pb-12">
-      <div className="mb-8">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary transition-colors mb-4"
-        >
-          <ArrowRight size={16} />
-          رجوع
-        </button>
+      <div className="my-8">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
             <Hospital size={28} />
