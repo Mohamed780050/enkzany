@@ -89,6 +89,12 @@ model Hospital {
 
   lastUpdate     DateTime        @default(now())
 
+  // Subscription tracking
+  subscriptionPlan   String?     // "basic" | "professional" | "partners"
+  subscriptionStatus String?     // "active" | "cancelled" | "expired" | "trialing"
+  dodoCustomerId     String?     // Dodo Payments customer ID
+  dodoSubscriptionId String?     // Dodo Payments subscription ID
+
   adminId        String
   admin          User            @relation(fields: [adminId], references: [id], onDelete: Cascade)
 

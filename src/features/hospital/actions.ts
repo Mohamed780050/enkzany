@@ -68,3 +68,15 @@ export async function updateProfileAction(
     return { success: false, message: "حدث خطأ أثناء حفظ البيانات" };
   }
 }
+
+export async function getSubscriptionPlan() {
+  const session = await getSession();
+  if (!session) return "basic";
+
+  const hospital = await prisma.hospital.findFirst({
+    where: { adminId: session.user.id },
+    select: { subscriptionPlan: true },
+  });
+
+  return hospital?.subscriptionPlan || "basic";
+}

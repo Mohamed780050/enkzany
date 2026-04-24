@@ -17,6 +17,9 @@ import {
   MessageCircle,
   Stethoscope,
   HeartPlus,
+  Zap,
+  Star,
+  Check,
 } from "lucide-react";
 import { LandingNav } from "@/components/layout/landing-nav";
 import { Logo } from "@/components/ui/logo";
@@ -288,6 +291,133 @@ export default function LandingPage() {
                 <p className="text-muted-foreground leading-relaxed">
                   {f.desc}
                 </p>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-24 bg-white relative">
+        <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
+        <div className="max-w-7xl mx-auto px-6">
+          <FadeIn className="text-center mb-20 space-y-4">
+            <h2 className="text-4xl font-bold text-primary">
+              باقات الاشتراك
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              اختر الباقة التي تناسب حجم مستشفاك واحتياجاتك
+            </p>
+          </FadeIn>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-4" staggerChildren={0.2}>
+            {[
+              {
+                name: "خطة أساسية",
+                price: "0",
+                icon: Zap,
+                features: [
+                  "إدراج المستشفى في التطبيق",
+                  "تعديل الأسرة المتاحة",
+                  "تحديث فوري للقاعدة",
+                ],
+                missing: [
+                  "الأولوية في نتائج البحث",
+                  "تقارير تحليلية متقدمة",
+                  "دعم فني متخصص",
+                ],
+              },
+              {
+                name: "خطة احترافية",
+                price: "1500",
+                icon: Star,
+                features: [
+                  "كافة مميزات الخطة الأساسية",
+                  "الأولوية القصوى في البحث",
+                  "سجل تحديثات كامل ومفصل",
+                  "تصدير البيانات",
+                ],
+                missing: ["دعم فني 1:1"],
+                popular: true,
+              },
+              {
+                name: "خطة الشركاء",
+                price: "3500",
+                icon: ShieldCheck,
+                features: [
+                  "كافة مميزات الخطة الاحترافية",
+                  "تقارير تحليلية شاملة",
+                  "دعم فني مخصص ٢٤/٧",
+                  "لوحة تحكم متعددة الفروع",
+                ],
+                missing: [],
+              },
+            ].map((plan, i) => (
+              <StaggerItem
+                key={i}
+                className={`relative flex flex-col rounded-3xl overflow-hidden transition-all duration-500 border hover:-translate-y-2 bg-white ${
+                  plan.popular
+                    ? "border-primary/50 shadow-2xl shadow-primary/10 md:scale-105 z-10"
+                    : "border-border/50 shadow-lg hover:shadow-xl hover:border-primary/30"
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute top-0 inset-x-0 flex justify-center">
+                    <div className="bg-primary text-white px-6 py-1.5 rounded-b-xl text-xs font-bold uppercase tracking-wider">
+                      الأكثر طلباً
+                    </div>
+                  </div>
+                )}
+                
+                <div className="p-8 text-center border-b border-border/50">
+                  <div
+                    className={`w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center ${
+                      plan.popular
+                        ? "bg-primary text-white shadow-lg shadow-primary/20"
+                        : "bg-zinc-100 text-zinc-500"
+                    }`}
+                  >
+                    <plan.icon size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                  <div className="flex items-baseline justify-center gap-1" dir="rtl">
+                    <span className="text-5xl font-black">{plan.price}</span>
+                    <span className="text-muted-foreground font-bold">ج.م/شهر</span>
+                  </div>
+                </div>
+
+                <div className="p-8 flex-1">
+                  <ul className="space-y-4">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <Check size={20} className="text-success shrink-0 mt-0.5" />
+                        <span className="font-semibold text-sm">{feature}</span>
+                      </li>
+                    ))}
+                    {plan.missing.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-3 opacity-50">
+                        <div className="w-5 h-5 flex items-center justify-center shrink-0 mt-0.5">
+                          <div className="w-2 h-0.5 bg-muted-foreground rounded-full" />
+                        </div>
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-8 pt-0 mt-auto">
+                  <Link href="/dashboard/subscription" className="block w-full">
+                    <Button 
+                      className={`w-full h-14 rounded-xl text-lg font-bold ${
+                        plan.popular 
+                          ? "bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20" 
+                          : "bg-zinc-100 text-foreground hover:bg-zinc-200"
+                      }`}
+                    >
+                      {plan.price === "0" ? "ابدأ مجاناً" : "اشترك الآن"}
+                    </Button>
+                  </Link>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>

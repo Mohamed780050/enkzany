@@ -13,6 +13,7 @@ export function LandingNav() {
   const links = [
     { href: "#how-it-works", label: "كيف يعمل؟" },
     { href: "#features", label: "المميزات" },
+    { href: "#pricing", label: "الباقات" },
     { href: "#faq", label: "الأسئلة الشائعة" },
   ];
 
