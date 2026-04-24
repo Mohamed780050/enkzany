@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { nameAr, nameEn, email, phone, address, type } = body;
+  const { nameAr, nameEn, email, phone, address, type, latitude, longitude } = body;
 
   if (!nameAr || !nameEn || !email) {
     return NextResponse.json(
@@ -46,6 +46,9 @@ export async function POST(request: Request) {
     );
   }
 
+  const parsedLat = latitude ? parseFloat(latitude) : null;
+  const parsedLng = longitude ? parseFloat(longitude) : null;
+
   const hospital = await prisma.hospital.create({
     data: {
       nameAr,
@@ -54,6 +57,8 @@ export async function POST(request: Request) {
       phone: phone || null,
       address: address || null,
       type: type || "public",
+      latitude: isNaN(parsedLat as any) ? null : parsedLat,
+      longitude: isNaN(parsedLng as any) ? null : parsedLng,
       adminId: session.user.id,
     },
   });

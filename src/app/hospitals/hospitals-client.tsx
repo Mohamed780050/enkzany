@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { Hospital as HospitalIcon, Phone, MapPin, Search, Activity, BedSingle, AlertCircle } from "lucide-react";
 
+import { generateGoogleMapsLink } from "@/lib/utils";
+
 function formatDistanceToNowAr(date: Date | string) {
   const diffInSeconds = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
   
@@ -33,6 +35,8 @@ type Hospital = {
   address: string | null;
   phone: string | null;
   type: string | null;
+  latitude: number | null;
+  longitude: number | null;
   bedsGeneral: number;
   bedsIcu: number;
   bedsEmergency: number;
@@ -122,6 +126,19 @@ export function HospitalsClient({ initialHospitals }: { initialHospitals: Hospit
                       <div className="flex items-center gap-2">
                         <Phone className="w-4 h-4 shrink-0" />
                         <span dir="ltr">{hospital.phone}</span>
+                      </div>
+                    )}
+                    {hospital.latitude && hospital.longitude && (
+                      <div className="flex items-center gap-2 mt-1">
+                        <a 
+                          href={generateGoogleMapsLink(hospital.latitude, hospital.longitude)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 transition-colors bg-primary/5 hover:bg-primary/10 px-2.5 py-1.5 rounded-lg border border-primary/10"
+                        >
+                          <MapPin className="w-3.5 h-3.5" />
+                          عرض على الخريطة
+                        </a>
                       </div>
                     )}
                   </div>

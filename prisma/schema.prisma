@@ -79,6 +79,9 @@ model Hospital {
   phone          String?
   type           String?         // 'public' | 'private'
 
+  latitude       Float?
+  longitude      Float?
+
   bedsGeneral    Int             @default(0)
   bedsIcu        Int             @default(0)
   bedsEmergency  Int             @default(0)

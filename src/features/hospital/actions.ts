@@ -33,6 +33,12 @@ export async function updateProfileAction(
   const address = formData.get("address") as string;
   const phone = formData.get("phone") as string;
   const type = formData.get("type") as string;
+  
+  const latitudeStr = formData.get("latitude") as string | null;
+  const longitudeStr = formData.get("longitude") as string | null;
+
+  const parsedLat = latitudeStr ? parseFloat(latitudeStr) : null;
+  const parsedLng = longitudeStr ? parseFloat(longitudeStr) : null;
 
   try {
     await prisma.hospital.update({
@@ -43,6 +49,8 @@ export async function updateProfileAction(
         address,
         phone,
         type,
+        latitude: isNaN(parsedLat as any) ? null : parsedLat,
+        longitude: isNaN(parsedLng as any) ? null : parsedLng,
       },
     });
 

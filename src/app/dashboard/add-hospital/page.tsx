@@ -32,6 +32,8 @@ export default function AddHospitalPage() {
       phone: (formData.get("phone") as string) || undefined,
       address: (formData.get("address") as string) || undefined,
       type: formData.get("type") as string,
+      latitude: formData.get("latitude") ? parseFloat(formData.get("latitude") as string) : undefined,
+      longitude: formData.get("longitude") ? parseFloat(formData.get("longitude") as string) : undefined,
     };
 
     try {
@@ -182,6 +184,38 @@ export default function AddHospitalPage() {
               name="address"
               placeholder="شارع التحرير، القاهرة"
               className="h-14 pr-12 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+            />
+          </div>
+        </div>
+
+        {/* Coordinates */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="latitude" className="font-bold text-foreground/80">
+              خط العرض (Latitude)
+            </Label>
+            <Input
+              id="latitude"
+              name="latitude"
+              type="number"
+              step="any"
+              dir="ltr"
+              placeholder="30.0444"
+              className="h-14 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="longitude" className="font-bold text-foreground/80">
+              خط الطول (Longitude)
+            </Label>
+            <Input
+              id="longitude"
+              name="longitude"
+              type="number"
+              step="any"
+              dir="ltr"
+              placeholder="31.2357"
+              className="h-14 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
             />
           </div>
         </div>

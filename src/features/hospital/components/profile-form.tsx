@@ -116,6 +116,40 @@ export function ProfileForm({ hospital }: { hospital: Hospital }) {
                 </div>
               </div>
 
+              {/* Coordinates */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="latitude" className="text-foreground/80 font-bold mr-1">
+                    خط العرض (Latitude)
+                  </Label>
+                  <Input
+                    id="latitude"
+                    name="latitude"
+                    type="number"
+                    step="any"
+                    dir="ltr"
+                    defaultValue={hospital.latitude || ""}
+                    placeholder="30.0444"
+                    className="h-14 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none text-lg font-bold text-left"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="longitude" className="text-foreground/80 font-bold mr-1">
+                    خط الطول (Longitude)
+                  </Label>
+                  <Input
+                    id="longitude"
+                    name="longitude"
+                    type="number"
+                    step="any"
+                    dir="ltr"
+                    defaultValue={hospital.longitude || ""}
+                    placeholder="31.2357"
+                    className="h-14 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none text-lg font-bold text-left"
+                  />
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label
