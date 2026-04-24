@@ -2,19 +2,23 @@ import { UpdateHistory } from "@/generated/prisma/client";
 import { Clock, Calendar, User } from "lucide-react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { FadeIn } from "@/components/animations/fade-in";
+import { StaggerTableBody, StaggerTableRow } from "@/components/animations/stagger-table";
 
 export function HistoryTable({ history }: { history: UpdateHistory[] }) {
   if (history.length === 0) {
     return (
-      <div className="text-center py-20 bg-zinc-50/50 rounded-[2rem] border-2 border-dashed border-border/50">
-        <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-4 text-muted-foreground">
-          <Clock size={32} />
+      <FadeIn>
+        <div className="text-center py-20 bg-zinc-50/50 rounded-[2rem] border-2 border-dashed border-border/50">
+          <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-4 text-muted-foreground">
+            <Clock size={32} />
+          </div>
+          <p className="text-xl font-bold text-foreground">لا يوجد سجل تحديثات</p>
+          <p className="text-muted-foreground">
+            سيظهر هنا تاريخ كافة التعديلات التي تجريها
+          </p>
         </div>
-        <p className="text-xl font-bold text-foreground">لا يوجد سجل تحديثات</p>
-        <p className="text-muted-foreground">
-          سيظهر هنا تاريخ كافة التعديلات التي تجريها
-        </p>
-      </div>
+      </FadeIn>
     );
   }
 
@@ -58,9 +62,9 @@ export function HistoryTable({ history }: { history: UpdateHistory[] }) {
               <th className="font-black pb-4 pl-6 text-left">التاريخ والوقت</th>
             </tr>
           </thead>
-          <tbody>
+          <StaggerTableBody>
             {history.map((item) => (
-              <tr
+              <StaggerTableRow
                 key={item.id}
                 className="group bg-white hover:bg-zinc-50 transition-colors shadow-sm"
               >
@@ -114,9 +118,9 @@ export function HistoryTable({ history }: { history: UpdateHistory[] }) {
                     })}
                   </div>
                 </td>
-              </tr>
+              </StaggerTableRow>
             ))}
-          </tbody>
+          </StaggerTableBody>
         </table>
       </div>
     </div>

@@ -1,5 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
+import { FadeIn } from "@/components/animations/fade-in";
+import { SlideUp } from "@/components/animations/slide-up";
+import { StaggerContainer, StaggerItem } from "@/components/animations/stagger-container";
 import { Button } from "@/components/ui/button";
 import {
   ArrowLeft,
@@ -37,65 +40,75 @@ export default function LandingPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center lg:text-right flex flex-col lg:flex-row items-center gap-16">
-          <div className="lg:w-3/5 space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary text-sm font-bold border border-primary/10">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-              </span>
-              منصة التحديث اللحظي الأولى في مصر
-            </div>
+          <StaggerContainer className="lg:w-3/5 space-y-8">
+            <StaggerItem>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary text-sm font-bold border border-primary/10">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+                منصة التحديث اللحظي الأولى في مصر
+              </div>
+            </StaggerItem>
 
-            <h1 className="text-5xl md:text-7xl font-extrabold text-foreground leading-[1.15] tracking-tight">
-              لا تبحث عن سرير <br />
-              <span className="text-primary italic">في وقت الأزمة!</span>
-            </h1>
+            <StaggerItem>
+              <h1 className="text-5xl md:text-7xl font-extrabold text-foreground leading-[1.15] tracking-tight">
+                لا تبحث عن سرير <br />
+                <span className="text-primary italic">في وقت الأزمة!</span>
+              </h1>
+            </StaggerItem>
 
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
-              إنقذني هي حلقة الوصل بين المستشفيات والمرضى. نساعد المستشفيات على
-              إدارة وتحديث توفر الأسرة في ثوانٍ، لنضمن وصول كل مريض للرعاية
-              المناسبة في أسرع وقت.
-            </p>
+            <StaggerItem>
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
+                إنقذني هي حلقة الوصل بين المستشفيات والمرضى. نساعد المستشفيات على
+                إدارة وتحديث توفر الأسرة في ثوانٍ، لنضمن وصول كل مريض للرعاية
+                المناسبة في أسرع وقت.
+              </p>
+            </StaggerItem>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
-              <Link href="/login">
+            <StaggerItem>
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
+                <Link href="/login">
+                  <Button
+                    size="lg"
+                    className="rounded-full px-10 py-8 text-xl font-bold h-auto shadow-xl shadow-primary/20 hover:scale-105 transition-transform"
+                  >
+                    ابدأ الاستخدام مجاناً
+                  </Button>
+                </Link>
                 <Button
                   size="lg"
-                  className="rounded-full px-10 py-8 text-xl font-bold h-auto shadow-xl shadow-primary/20 hover:scale-105 transition-transform"
+                  variant="outline"
+                  className="rounded-full px-10 py-8 text-xl font-bold h-auto border-2 hover:bg-zinc-50 transition-colors"
                 >
-                  ابدأ الاستخدام مجاناً
+                  اطلب عرض تجريبي
                 </Button>
-              </Link>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full px-10 py-8 text-xl font-bold h-auto border-2 hover:bg-zinc-50 transition-colors"
-              >
-                اطلب عرض تجريبي
-              </Button>
-            </div>
-
-            <div className="flex items-center gap-6 pt-8 justify-center lg:justify-start">
-              <div className="flex -space-x-3 space-x-reverse">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-12 h-12 rounded-full border-4 border-white bg-zinc-200 overflow-hidden"
-                  >
-                    <div className="w-full h-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-                      👤
-                    </div>
-                  </div>
-                ))}
               </div>
-              <p className="text-sm font-medium text-muted-foreground">
-                <span className="font-bold text-foreground">150+ مستشفى</span>{" "}
-                تعتمد علينا يومياً
-              </p>
-            </div>
-          </div>
+            </StaggerItem>
 
-          <div className="lg:w-2/5 w-full relative">
+            <StaggerItem>
+              <div className="flex items-center gap-6 pt-8 justify-center lg:justify-start">
+                <div className="flex -space-x-3 space-x-reverse">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className="w-12 h-12 rounded-full border-4 border-white bg-zinc-200 overflow-hidden"
+                    >
+                      <div className="w-full h-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                        👤
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  <span className="font-bold text-foreground">150+ مستشفى</span>{" "}
+                  تعتمد علينا يومياً
+                </p>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
+
+          <SlideUp className="lg:w-2/5 w-full relative" delay={0.4}>
             <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-8 border-white/50 bg-white">
               <div className="bg-primary/5 p-6 space-y-4">
                 <div className="flex justify-between items-center">
@@ -129,36 +142,36 @@ export default function LandingPage() {
             {/* Decorative elements */}
             <div className="absolute -top-6 -left-6 w-32 h-32 bg-primary/10 rounded-full blur-3xl z-0" />
             <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-secondary/10 rounded-full blur-3xl z-0" />
-          </div>
+          </SlideUp>
         </div>
       </section>
 
       {/* Stats Section */}
       <section className="bg-primary text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div className="space-y-1">
+        <StaggerContainer className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center" staggerChildren={0.2}>
+          <StaggerItem className="space-y-1">
             <div className="text-4xl font-black">2.5M+</div>
             <div className="text-white/70 text-sm">مريض تم مساعدته</div>
-          </div>
-          <div className="space-y-1">
+          </StaggerItem>
+          <StaggerItem className="space-y-1">
             <div className="text-4xl font-black">200+</div>
             <div className="text-white/70 text-sm">مستشفى مسجلة</div>
-          </div>
-          <div className="space-y-1">
+          </StaggerItem>
+          <StaggerItem className="space-y-1">
             <div className="text-4xl font-black">15sec</div>
             <div className="text-white/70 text-sm">متوسط وقت التحديث</div>
-          </div>
-          <div className="space-y-1">
+          </StaggerItem>
+          <StaggerItem className="space-y-1">
             <div className="text-4xl font-black">27+</div>
             <div className="text-white/70 text-sm">محافظة مغطاة</div>
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerContainer>
       </section>
 
       {/* How it Works */}
       <section id="how-it-works" className="py-24 bg-zinc-50">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20 space-y-4">
+          <FadeIn className="text-center mb-20 space-y-4">
             <h2 className="text-4xl font-bold text-primary">
               كيف تعمل المنصة؟
             </h2>
@@ -166,11 +179,11 @@ export default function LandingPage() {
               بساطة الاستخدام هي سر نجاحنا. صممنا النظام ليعمل في البيئات الطبية
               المزدحمة.
             </p>
-          </div>
+          </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-            <div className="relative text-center space-y-6">
-              <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto shadow-xl text-primary border border-primary/10 border-b-4 border-b-primary">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-12 relative" staggerChildren={0.3}>
+            <StaggerItem className="relative text-center space-y-6">
+              <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto shadow-xl text-primary border border-primary/10 border-b-4 border-b-primary hover:-translate-y-2 transition-transform duration-300">
                 <Stethoscope size={36} />
               </div>
               <h3 className="text-2xl font-bold">1. يسجل الممرض الدخول</h3>
@@ -179,10 +192,10 @@ export default function LandingPage() {
                 بالمستشفى.
               </p>
               <div className="hidden md:block absolute top-10 -right-1/4 w-1/2 h-px bg-dashed-primary border-t-2 border-dashed border-primary/20" />
-            </div>
+            </StaggerItem>
 
-            <div className="relative text-center space-y-6">
-              <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto shadow-xl text-primary border border-primary/10 border-b-4 border-b-primary">
+            <StaggerItem className="relative text-center space-y-6">
+              <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto shadow-xl text-primary border border-primary/10 border-b-4 border-b-primary hover:-translate-y-2 transition-transform duration-300">
                 <HeartPlus size={36} />
               </div>
               <h3 className="text-2xl font-bold">2. يعدل الأرقام</h3>
@@ -190,10 +203,10 @@ export default function LandingPage() {
                 بلمسة واحدة يزيد أو ينقص عدد الأسرة المتاحة في الأقسام المختلفة.
               </p>
               <div className="hidden md:block absolute top-10 -right-1/4 w-1/2 h-px bg-zinc-200 border-t-2 border-dashed border-primary/20" />
-            </div>
+            </StaggerItem>
 
-            <div className="text-center space-y-6">
-              <div className="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center mx-auto shadow-xl text-white shadow-primary/30">
+            <StaggerItem className="text-center space-y-6">
+              <div className="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center mx-auto shadow-xl text-white shadow-primary/30 hover:-translate-y-2 transition-transform duration-300">
                 <Smartphone size={36} />
               </div>
               <h3 className="text-2xl font-bold text-primary">
@@ -203,15 +216,15 @@ export default function LandingPage() {
                 تنعكس الأرقام الجديدة فوراً على تطبيق "إنقذني" للمرضى وسيارات
                 الإسعاف.
               </p>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Features */}
       <section id="features" className="py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-end justify-between mb-16 gap-6">
+          <FadeIn className="flex flex-col lg:flex-row items-end justify-between mb-16 gap-6">
             <div className="space-y-4 text-right">
               <h2 className="text-4xl font-bold text-primary">
                 مميزات تهم المستشفيات
@@ -229,9 +242,9 @@ export default function LandingPage() {
                 اكتشف كل المميزات <ArrowLeft size={20} />
               </Button>
             </Link>
-          </div>
+          </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" staggerChildren={0.15}>
             {[
               {
                 icon: Clock,
@@ -264,7 +277,7 @@ export default function LandingPage() {
                 desc: "حدد من يمكنه التعديل ومن يمكنه العرض فقط داخل الطاقم الطبي.",
               },
             ].map((f, i) => (
-              <div
+              <StaggerItem
                 key={i}
                 className="group p-8 bg-white border border-border/50 rounded-3xl hover:border-primary/30 hover:shadow-xl transition-all duration-300"
               >
@@ -275,20 +288,22 @@ export default function LandingPage() {
                 <p className="text-muted-foreground leading-relaxed">
                   {f.desc}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* FAQ */}
       <section id="faq" className="py-24 bg-zinc-50">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-primary text-center mb-16">
-            الأسئلة الشائعة
-          </h2>
+          <FadeIn>
+            <h2 className="text-4xl font-bold text-primary text-center mb-16">
+              الأسئلة الشائعة
+            </h2>
+          </FadeIn>
 
-          <div className="space-y-6">
+          <StaggerContainer className="space-y-6">
             {[
               {
                 q: "هل يحتاج النظام لأي أجهزة خاصة؟",
@@ -307,7 +322,7 @@ export default function LandingPage() {
                 a: "المستشفيات الحكومية والخيرية تحصل على مزايا خاصة وخصومات تصل لـ 50% كجزء من مسؤوليتنا المجتمعية.",
               },
             ].map((item, i) => (
-              <div
+              <StaggerItem
                 key={i}
                 className="bg-white rounded-2xl p-6 border border-border/40 shadow-sm"
               >
@@ -316,15 +331,15 @@ export default function LandingPage() {
                   {item.q}
                 </h4>
                 <p className="text-muted-foreground pr-4.5">{item.a}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto relative rounded-[3rem] bg-primary overflow-hidden py-20 px-12 text-center text-white">
+        <SlideUp className="max-w-7xl mx-auto relative rounded-[3rem] bg-primary overflow-hidden py-20 px-12 text-center text-white" yOffset={50}>
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
@@ -354,7 +369,7 @@ export default function LandingPage() {
               </Button>
             </div>
           </div>
-        </div>
+        </SlideUp>
       </section>
 
       {/* Footer */}

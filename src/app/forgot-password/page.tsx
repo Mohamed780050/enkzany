@@ -11,13 +11,19 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function ForgotPasswordPage() {
   const [sent, setSent] = useState(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-accent py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-[420px] mx-auto shadow-md border-t-4 border-t-primary rounded-xl bg-white">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, type: "spring", stiffness: 100, damping: 20 }}
+      >
+        <Card className="w-full max-w-[420px] mx-auto shadow-md border-t-4 border-t-primary rounded-xl bg-white">
         <CardHeader className="text-center pb-6">
           <h1 className="text-2xl font-bold text-primary mb-2">
             استعادة كلمة المرور
@@ -67,6 +73,7 @@ export default function ForgotPasswordPage() {
           </div>
         </CardContent>
       </Card>
+      </motion.div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import {
   AlertTriangle,
   XCircle,
 } from "lucide-react";
+import { FadeIn } from "@/components/animations/fade-in";
 
 export function StatusBanner({ hospital }: { hospital: Hospital }) {
   const totalBeds =
@@ -53,47 +54,49 @@ export function StatusBanner({ hospital }: { hospital: Hospital }) {
   else timeText = `منذ ${hoursSinceUpdate} ساعة`;
 
   return (
-    <div
-      className={`relative overflow-hidden rounded-[2rem] border ${status.borderColor} ${status.bgColor} p-8 shadow-sm transition-all hover:shadow-md group`}
-    >
-      <div className="absolute top-0 left-0 w-32 h-32 bg-white/40 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+    <FadeIn>
+      <div
+        className={`relative overflow-hidden rounded-[2rem] border ${status.borderColor} ${status.bgColor} p-8 shadow-sm transition-all hover:shadow-md group`}
+      >
+        <div className="absolute top-0 left-0 w-32 h-32 bg-white/40 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
 
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
-        <div className="flex items-start gap-6">
-          <div
-            className={`p-4 rounded-2xl ${status.color} shadow-lg shadow-current/10 group-hover:scale-110 transition-transform`}
-          >
-            <status.icon size={32} />
-          </div>
-          <div className="space-y-1">
-            <h2 className="text-3xl font-black text-foreground tracking-tight">
-              {status.label}
-            </h2>
-            <p className="text-muted-foreground font-medium">
-              {status.subText}
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col md:items-end gap-3 text-right">
-          <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-border/50 text-sm font-bold shadow-sm">
-            <Clock
-              size={16}
-              className={isStale ? "text-destructive" : "text-primary"}
-            />
-            <span className={isStale ? "text-destructive" : "text-foreground"}>
-              آخر تحديث: {timeText}
-            </span>
-          </div>
-
-          {isStale && (
-            <div className="flex items-center gap-2 text-destructive animate-pulse text-xs font-black uppercase tracking-widest bg-destructive/10 px-3 py-1 rounded-full border border-destructive/20">
-              <AlertCircle size={14} />
-              يرجى تحديث البيانات فوراً
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
+          <div className="flex items-start gap-6">
+            <div
+              className={`p-4 rounded-2xl ${status.color} shadow-lg shadow-current/10 group-hover:scale-110 transition-transform`}
+            >
+              <status.icon size={32} />
             </div>
-          )}
+            <div className="space-y-1">
+              <h2 className="text-3xl font-black text-foreground tracking-tight">
+                {status.label}
+              </h2>
+              <p className="text-muted-foreground font-medium">
+                {status.subText}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:items-end gap-3 text-right">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-border/50 text-sm font-bold shadow-sm">
+              <Clock
+                size={16}
+                className={isStale ? "text-destructive" : "text-primary"}
+              />
+              <span className={isStale ? "text-destructive" : "text-foreground"}>
+                آخر تحديث: {timeText}
+              </span>
+            </div>
+
+            {isStale && (
+              <div className="flex items-center gap-2 text-destructive animate-pulse text-xs font-black uppercase tracking-widest bg-destructive/10 px-3 py-1 rounded-full border border-destructive/20">
+                <AlertCircle size={14} />
+                يرجى تحديث البيانات فوراً
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </FadeIn>
   );
 }

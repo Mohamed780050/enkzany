@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { governorates } from "@/lib/governorates";
+import { motion } from "framer-motion";
 
 export default function AddHospitalPage() {
   const router = useRouter();
@@ -64,7 +65,12 @@ export default function AddHospitalPage() {
 
   return (
     <div className="max-w-2xl mx-auto pb-12">
-      <div className="my-8">
+      <motion.div
+        className="my-8"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, type: "spring", stiffness: 100, damping: 20 }}
+      >
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
             <Hospital size={28} />
@@ -78,11 +84,14 @@ export default function AddHospitalPage() {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      <form
+      <motion.form
         onSubmit={handleSubmit}
         className="bg-white rounded-3xl border border-border/50 shadow-sm p-8 space-y-6"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.15, type: "spring", stiffness: 100, damping: 20 }}
       >
         {/* Hospital Name (Arabic) */}
         <div className="space-y-2">
@@ -290,7 +299,7 @@ export default function AddHospitalPage() {
             "إضافة المستشفى"
           )}
         </Button>
-      </form>
+      </motion.form>
     </div>
   );
 }

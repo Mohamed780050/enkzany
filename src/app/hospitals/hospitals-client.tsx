@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Hospital as HospitalIcon, Phone, MapPin, Search, Activity, BedSingle, AlertCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FadeIn } from "@/components/animations/fade-in";
 
 import { generateGoogleMapsLink } from "@/lib/utils";
 import { governorates } from "@/lib/governorates";
@@ -109,99 +111,115 @@ export function HospitalsClient({ initialHospitals }: { initialHospitals: Hospit
 
       {/* Grid */}
       {filteredHospitals.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-border">
-          <HospitalIcon className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-foreground">لا توجد مستشفيات مطابقة</h3>
-          <p className="text-muted-foreground mt-2">حاول استخدام كلمات بحث مختلفة</p>
-        </div>
+        <FadeIn>
+          <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-border">
+            <HospitalIcon className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-foreground">لا توجد مستشفيات مطابقة</h3>
+            <p className="text-muted-foreground mt-2">حاول استخدام كلمات بحث مختلفة</p>
+          </div>
+        </FadeIn>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredHospitals.map((hospital) => (
-            <Card key={hospital.id} className="rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 border-border/50 bg-white flex flex-col justify-between pt-0">
-              <div>
-                <CardHeader className="bg-zinc-50 border-b border-border/50 py-4">
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="space-y-1">
-                      <CardTitle className="text-xl font-black text-foreground">{hospital.nameAr}</CardTitle>
-                      <div className="text-sm text-muted-foreground font-medium">{hospital.nameEn}</div>
-                    </div>
-                    {hospital.type && (
-                      <Badge variant="outline" className={`rounded-lg px-2.5 py-1 font-bold ${hospital.type === 'public' ? 'bg-primary/10 text-primary border-primary/20' : 'bg-secondary/10 text-secondary border-secondary/20'}`}>
-                        {hospital.type === 'public' ? 'حكومي' : 'خاص'}
-                      </Badge>
-                    )}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredHospitals.map((hospital) => (
+              <motion.div
+                key={hospital.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Card className="rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 border-border/50 bg-white flex flex-col justify-between pt-0 h-full">
+                  <div>
+                    <CardHeader className="bg-zinc-50 border-b border-border/50 py-4">
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="space-y-1">
+                          <CardTitle className="text-xl font-black text-foreground">{hospital.nameAr}</CardTitle>
+                          <div className="text-sm text-muted-foreground font-medium">{hospital.nameEn}</div>
+                        </div>
+                        {hospital.type && (
+                          <Badge variant="outline" className={`rounded-lg px-2.5 py-1 font-bold ${hospital.type === 'public' ? 'bg-primary/10 text-primary border-primary/20' : 'bg-secondary/10 text-secondary border-secondary/20'}`}>
+                            {hospital.type === 'public' ? 'حكومي' : 'خاص'}
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 mt-4 text-sm text-muted-foreground">
+                        {hospital.governorate && (
+                          <div className="flex items-start gap-2">
+                            <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary/70" />
+                            <span className="leading-snug font-bold">
+                              {governorates.find((g) => g.value === hospital.governorate)?.labelAr || hospital.governorate}
+                            </span>
+                          </div>
+                        )}
+                        {hospital.address && (
+                          <div className="flex items-start gap-2">
+                            <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
+                            <span className="leading-snug">{hospital.address}</span>
+                          </div>
+                        )}
+                        {hospital.phone && (
+                          <div className="flex items-center gap-2">
+                            <Phone className="w-4 h-4 shrink-0" />
+                            <span dir="ltr">{hospital.phone}</span>
+                          </div>
+                        )}
+                        {hospital.latitude && hospital.longitude && (
+                          <div className="flex items-center gap-2 mt-1">
+                            <a 
+                              href={generateGoogleMapsLink(hospital.latitude, hospital.longitude)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 transition-colors bg-primary/5 hover:bg-primary/10 px-2.5 py-1.5 rounded-lg border border-primary/10"
+                            >
+                              <MapPin className="w-3.5 h-3.5" />
+                              عرض على الخريطة
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </CardHeader>
+                    
+                    <CardContent className="pt-6">
+                      <h4 className="text-sm font-bold text-muted-foreground mb-4">الأسرة المتاحة حالياً</h4>
+                      <div className="grid grid-cols-3 gap-3">
+                        <div className="bg-primary/5 rounded-2xl p-3 text-center border border-primary/10">
+                          <BedSingle className="w-5 h-5 text-primary mx-auto mb-2" />
+                          <div className="text-2xl font-black text-primary">{hospital.bedsGeneral}</div>
+                          <div className="text-xs font-bold text-primary/70 mt-1">عادي</div>
+                        </div>
+                        
+                        <div className="bg-success/5 rounded-2xl p-3 text-center border border-success/10">
+                          <Activity className="w-5 h-5 text-success mx-auto mb-2" />
+                          <div className="text-2xl font-black text-success">{hospital.bedsIcu}</div>
+                          <div className="text-xs font-bold text-success/70 mt-1">عناية</div>
+                        </div>
+                        
+                        <div className="bg-warning/5 rounded-2xl p-3 text-center border border-warning/10">
+                          <AlertCircle className="w-5 h-5 text-warning mx-auto mb-2" />
+                          <div className="text-2xl font-black text-warning">{hospital.bedsEmergency}</div>
+                          <div className="text-xs font-bold text-warning/70 mt-1">طوارئ</div>
+                        </div>
+                      </div>
+                    </CardContent>
                   </div>
                   
-                  <div className="flex flex-col gap-2 mt-4 text-sm text-muted-foreground">
-                    {hospital.governorate && (
-                      <div className="flex items-start gap-2">
-                        <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary/70" />
-                        <span className="leading-snug font-bold">
-                          {governorates.find((g) => g.value === hospital.governorate)?.labelAr || hospital.governorate}
-                        </span>
-                      </div>
-                    )}
-                    {hospital.address && (
-                      <div className="flex items-start gap-2">
-                        <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                        <span className="leading-snug">{hospital.address}</span>
-                      </div>
-                    )}
-                    {hospital.phone && (
-                      <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 shrink-0" />
-                        <span dir="ltr">{hospital.phone}</span>
-                      </div>
-                    )}
-                    {hospital.latitude && hospital.longitude && (
-                      <div className="flex items-center gap-2 mt-1">
-                        <a 
-                          href={generateGoogleMapsLink(hospital.latitude, hospital.longitude)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 transition-colors bg-primary/5 hover:bg-primary/10 px-2.5 py-1.5 rounded-lg border border-primary/10"
-                        >
-                          <MapPin className="w-3.5 h-3.5" />
-                          عرض على الخريطة
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="pt-6">
-                  <h4 className="text-sm font-bold text-muted-foreground mb-4">الأسرة المتاحة حالياً</h4>
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-primary/5 rounded-2xl p-3 text-center border border-primary/10">
-                      <BedSingle className="w-5 h-5 text-primary mx-auto mb-2" />
-                      <div className="text-2xl font-black text-primary">{hospital.bedsGeneral}</div>
-                      <div className="text-xs font-bold text-primary/70 mt-1">عادي</div>
-                    </div>
-                    
-                    <div className="bg-success/5 rounded-2xl p-3 text-center border border-success/10">
-                      <Activity className="w-5 h-5 text-success mx-auto mb-2" />
-                      <div className="text-2xl font-black text-success">{hospital.bedsIcu}</div>
-                      <div className="text-xs font-bold text-success/70 mt-1">عناية</div>
-                    </div>
-                    
-                    <div className="bg-warning/5 rounded-2xl p-3 text-center border border-warning/10">
-                      <AlertCircle className="w-5 h-5 text-warning mx-auto mb-2" />
-                      <div className="text-2xl font-black text-warning">{hospital.bedsEmergency}</div>
-                      <div className="text-xs font-bold text-warning/70 mt-1">طوارئ</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </div>
-              
-              <CardFooter className="bg-zinc-50 border-t border-border/50 py-3 text-xs text-muted-foreground flex justify-between items-center mt-auto">
-                <span>آخر تحديث</span>
-                <span className="font-medium text-foreground">
-                  {formatDistanceToNowAr(hospital.lastUpdate)}
-                </span>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+                  <CardFooter className="bg-zinc-50 border-t border-border/50 py-3 text-xs text-muted-foreground flex justify-between items-center mt-auto">
+                    <span>آخر تحديث</span>
+                    <span className="font-medium text-foreground">
+                      {formatDistanceToNowAr(hospital.lastUpdate)}
+                    </span>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       )}
     </div>
   );
