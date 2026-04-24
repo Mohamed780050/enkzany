@@ -314,7 +314,7 @@ export default function LandingPage() {
             {[
               {
                 name: "خطة أساسية",
-                price: "0",
+                price: "20",
                 icon: Zap,
                 features: [
                   "إدراج المستشفى في التطبيق",
@@ -329,7 +329,7 @@ export default function LandingPage() {
               },
               {
                 name: "خطة احترافية",
-                price: "1500",
+                price: "40",
                 icon: Star,
                 features: [
                   "كافة مميزات الخطة الأساسية",
@@ -342,7 +342,7 @@ export default function LandingPage() {
               },
               {
                 name: "خطة الشركاء",
-                price: "3500",
+                price: "70",
                 icon: ShieldCheck,
                 features: [
                   "كافة مميزات الخطة الاحترافية",
@@ -382,7 +382,7 @@ export default function LandingPage() {
                   <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                   <div className="flex items-baseline justify-center gap-1" dir="rtl">
                     <span className="text-5xl font-black">{plan.price}</span>
-                    <span className="text-muted-foreground font-bold">ج.م/شهر</span>
+                    <span className="text-muted-foreground font-bold">$/شهر</span>
                   </div>
                 </div>
 

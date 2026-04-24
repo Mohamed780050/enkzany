@@ -34,7 +34,7 @@ const plans = [
   {
     name: "خطة أساسية",
     slug: "basic",
-    price: "0",
+    price: "20",
     icon: Zap,
     features: [
       "إدراج المستشفى في التطبيق",
@@ -51,7 +51,7 @@ const plans = [
   {
     name: "خطة احترافية",
     slug: "professional",
-    price: "1500",
+    price: "40",
     icon: Star,
     features: [
       "كافة مميزات الخطة الأساسية",
@@ -65,7 +65,7 @@ const plans = [
   {
     name: "خطة الشركاء",
     slug: "partners",
-    price: "3500",
+    price: "70",
     icon: ShieldCheck,
     features: [
       "كافة مميزات الخطة الاحترافية",
@@ -207,7 +207,7 @@ export default function SubscriptionPage() {
                     {plan.price}
                   </span>
                   <span className="text-muted-foreground font-bold text-lg">
-                    ج.م<span className="mx-1">/</span>شهر
+                    $<span className="mx-1">/</span>شهر
                   </span>
                 </div>
               </CardHeader>
@@ -249,13 +249,6 @@ export default function SubscriptionPage() {
                     <div className="flex items-center gap-3">
                       <Check size={24} className="text-zinc-400" />
                       <span>الخطة الحالية</span>
-                    </div>
-                  </Button>
-                ) : plan.slug === "basic" ? (
-                  <Button className="w-full h-16 rounded-2xl bg-white text-primary border-2 border-primary/20 hover:border-primary/40 hover:bg-white shadow-xl shadow-primary/5 cursor-default group transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <ShieldCheck size={24} className="text-primary" />
-                      <span className="font-black text-xl">مجانية</span>
                     </div>
                   </Button>
                 ) : (
