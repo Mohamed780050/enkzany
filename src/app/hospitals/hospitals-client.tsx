@@ -117,9 +117,9 @@ export function HospitalsClient({ initialHospitals }: { initialHospitals: Hospit
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredHospitals.map((hospital) => (
-            <Card key={hospital.id} className="rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 border-border/50 bg-white flex flex-col justify-between">
+            <Card key={hospital.id} className="rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 border-border/50 bg-white flex flex-col justify-between pt-0">
               <div>
-                <CardHeader className="bg-zinc-50 border-b border-border/50 pb-4">
+                <CardHeader className="bg-zinc-50 border-b border-border/50 py-4">
                   <div className="flex justify-between items-start gap-4">
                     <div className="space-y-1">
                       <CardTitle className="text-xl font-black text-foreground">{hospital.nameAr}</CardTitle>
@@ -133,6 +133,14 @@ export function HospitalsClient({ initialHospitals }: { initialHospitals: Hospit
                   </div>
                   
                   <div className="flex flex-col gap-2 mt-4 text-sm text-muted-foreground">
+                    {hospital.governorate && (
+                      <div className="flex items-start gap-2">
+                        <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary/70" />
+                        <span className="leading-snug font-bold">
+                          {governorates.find((g) => g.value === hospital.governorate)?.labelAr || hospital.governorate}
+                        </span>
+                      </div>
+                    )}
                     {hospital.address && (
                       <div className="flex items-start gap-2">
                         <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
