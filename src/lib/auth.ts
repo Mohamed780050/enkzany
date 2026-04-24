@@ -61,7 +61,8 @@ export const auth = betterAuth({
             console.log("✅ Subscription active:", payload.type);
             const data = payload.data as any;
             let userId = data.customer?.metadata?.userId;
-            const customerId = data.customer?.customer_id;
+            const customerId = data.customer?.customer_id || data.customer_id;
+            const customerEmail = data.customer?.email;
 
             if (!userId && customerId) {
               try {
@@ -72,8 +73,23 @@ export const auth = betterAuth({
               }
             }
 
+            // Fallback: Find user or hospital by email
+            if (!userId && customerEmail) {
+              const hospitalByEmail = await prisma.hospital.findUnique({
+                where: { email: customerEmail }
+              });
+              if (hospitalByEmail) {
+                userId = hospitalByEmail.adminId;
+              } else {
+                const userByEmail = await prisma.user.findUnique({
+                  where: { email: customerEmail }
+                });
+                if (userByEmail) userId = userByEmail.id;
+              }
+            }
+
             if (userId) {
-              await prisma.hospital.updateMany({
+              const res = await prisma.hospital.updateMany({
                 where: { adminId: userId },
                 data: {
                   subscriptionPlan: data.product_id,
@@ -82,20 +98,37 @@ export const auth = betterAuth({
                   dodoSubscriptionId: data.subscription_id,
                 },
               });
-              console.log(`✅ Hospital subscription activated for user ${userId}`);
+              console.log(`✅ Hospital plan updated (${res.count} records) for user ${userId}`);
+            } else {
+              console.log("⚠️ Could not find user for subscription active event. Customer ID:", customerId, "Email:", customerEmail);
             }
           },
           onSubscriptionCancelled: async (payload) => {
             console.log("❌ Subscription cancelled:", payload.type);
             const data = payload.data as any;
             let userId = data.customer?.metadata?.userId;
-            const customerId = data.customer?.customer_id;
+            const customerId = data.customer?.customer_id || data.customer_id;
+            const customerEmail = data.customer?.email;
 
             if (!userId && customerId) {
               try {
                 const customer = await dodoClient.customers.retrieve(customerId);
                 userId = customer.metadata?.userId;
               } catch (e) {}
+            }
+
+            if (!userId && customerEmail) {
+              const hospitalByEmail = await prisma.hospital.findUnique({
+                where: { email: customerEmail }
+              });
+              if (hospitalByEmail) {
+                userId = hospitalByEmail.adminId;
+              } else {
+                const userByEmail = await prisma.user.findUnique({
+                  where: { email: customerEmail }
+                });
+                if (userByEmail) userId = userByEmail.id;
+              }
             }
 
             if (userId) {
@@ -112,13 +145,28 @@ export const auth = betterAuth({
             console.log("🔄 Subscription renewed:", payload.type);
             const data = payload.data as any;
             let userId = data.customer?.metadata?.userId;
-            const customerId = data.customer?.customer_id;
+            const customerId = data.customer?.customer_id || data.customer_id;
+            const customerEmail = data.customer?.email;
 
             if (!userId && customerId) {
               try {
                 const customer = await dodoClient.customers.retrieve(customerId);
                 userId = customer.metadata?.userId;
               } catch (e) {}
+            }
+
+            if (!userId && customerEmail) {
+              const hospitalByEmail = await prisma.hospital.findUnique({
+                where: { email: customerEmail }
+              });
+              if (hospitalByEmail) {
+                userId = hospitalByEmail.adminId;
+              } else {
+                const userByEmail = await prisma.user.findUnique({
+                  where: { email: customerEmail }
+                });
+                if (userByEmail) userId = userByEmail.id;
+              }
             }
 
             if (userId) {
