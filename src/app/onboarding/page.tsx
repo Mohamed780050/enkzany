@@ -12,9 +12,11 @@ import {
   Mail,
   Phone,
   MapPin,
+  Map,
   ArrowRight,
 } from "lucide-react";
 import { toast } from "sonner";
+import { governorates } from "@/lib/governorates";
 
 export default function AddHospitalPage() {
   const router = useRouter();
@@ -31,6 +33,7 @@ export default function AddHospitalPage() {
       email: formData.get("email") as string,
       phone: (formData.get("phone") as string) || undefined,
       address: (formData.get("address") as string) || undefined,
+      governorate: formData.get("governorate") as string,
       type: formData.get("type") as string,
       latitude: formData.get("latitude") ? parseFloat(formData.get("latitude") as string) : undefined,
       longitude: formData.get("longitude") ? parseFloat(formData.get("longitude") as string) : undefined,
@@ -159,6 +162,32 @@ export default function AddHospitalPage() {
               placeholder="+20 123 456 7890"
               className="h-14 pr-12 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none"
             />
+          </div>
+        </div>
+
+        {/* Governorate */}
+        <div className="space-y-2">
+          <Label htmlFor="governorate" className="font-bold text-foreground/80">
+            المحافظة
+          </Label>
+          <div className="relative group">
+            <Map
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors"
+              size={18}
+            />
+            <select
+              id="governorate"
+              name="governorate"
+              required
+              className="h-14 w-full pl-4 pr-12 rounded-2xl border-border bg-zinc-50 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none appearance-none"
+            >
+              <option value="" disabled selected>اختر المحافظة...</option>
+              {governorates.map((gov) => (
+                <option key={gov.value} value={gov.value}>
+                  {gov.labelAr} - {gov.labelEn}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 

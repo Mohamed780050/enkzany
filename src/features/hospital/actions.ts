@@ -33,6 +33,7 @@ export async function updateProfileAction(
   const address = formData.get("address") as string;
   const phone = formData.get("phone") as string;
   const type = formData.get("type") as string;
+  const governorate = formData.get("governorate") as string;
   
   const latitudeStr = formData.get("latitude") as string | null;
   const longitudeStr = formData.get("longitude") as string | null;
@@ -49,6 +50,7 @@ export async function updateProfileAction(
         address,
         phone,
         type,
+        governorate,
         latitude: isNaN(parsedLat as any) ? null : parsedLat,
         longitude: isNaN(parsedLng as any) ? null : parsedLng,
       },

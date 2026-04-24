@@ -81,6 +81,7 @@ model Hospital {
 
   latitude       Float?
   longitude      Float?
+  governorate    String?
 
   bedsGeneral    Int             @default(0)
   bedsIcu        Int             @default(0)

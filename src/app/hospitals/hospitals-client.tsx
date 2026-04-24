@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Hospital as HospitalIcon, Phone, MapPin, Search, Activity, BedSingle, AlertCircle } from "lucide-react";
 
 import { generateGoogleMapsLink } from "@/lib/utils";
+import { governorates } from "@/lib/governorates";
 
 function formatDistanceToNowAr(date: Date | string) {
   const diffInSeconds = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
@@ -35,6 +36,7 @@ type Hospital = {
   address: string | null;
   phone: string | null;
   type: string | null;
+  governorate: string | null;
   latitude: number | null;
   longitude: number | null;
   bedsGeneral: number;
@@ -46,12 +48,14 @@ type Hospital = {
 export function HospitalsClient({ initialHospitals }: { initialHospitals: Hospital[] }) {
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
+  const [filterGovernorate, setFilterGovernorate] = useState<string>("all");
 
   const filteredHospitals = initialHospitals.filter((hospital) => {
     const matchesSearch = hospital.nameAr.toLowerCase().includes(search.toLowerCase()) || 
                           hospital.nameEn.toLowerCase().includes(search.toLowerCase());
     const matchesType = filterType === "all" || hospital.type === filterType;
-    return matchesSearch && matchesType;
+    const matchesGov = filterGovernorate === "all" || hospital.governorate === filterGovernorate;
+    return matchesSearch && matchesType && matchesGov;
   });
 
   return (
@@ -68,7 +72,20 @@ export function HospitalsClient({ initialHospitals }: { initialHospitals: Hospit
           />
         </div>
         
-        <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+        <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 items-center">
+          <select
+            value={filterGovernorate}
+            onChange={(e) => setFilterGovernorate(e.target.value)}
+            className="h-10 px-4 rounded-xl text-sm font-medium border-border bg-white focus:ring-2 focus:ring-primary/20 outline-none min-w-[140px]"
+          >
+            <option value="all">كل المحافظات</option>
+            {governorates.map((gov) => (
+              <option key={gov.value} value={gov.value}>
+                {gov.labelAr}
+              </option>
+            ))}
+          </select>
+
           <button 
             onClick={() => setFilterType("all")}
             className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-colors ${filterType === 'all' ? 'bg-primary text-primary-foreground shadow-md' : 'bg-zinc-100 hover:bg-zinc-200 text-zinc-700'}`}

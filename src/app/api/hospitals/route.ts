@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { nameAr, nameEn, email, phone, address, type, latitude, longitude } = body;
+  const { nameAr, nameEn, email, phone, address, type, latitude, longitude, governorate } = body;
 
   if (!nameAr || !nameEn || !email) {
     return NextResponse.json(
@@ -57,6 +57,7 @@ export async function POST(request: Request) {
       phone: phone || null,
       address: address || null,
       type: type || "public",
+      governorate: governorate || null,
       latitude: isNaN(parsedLat as any) ? null : parsedLat,
       longitude: isNaN(parsedLng as any) ? null : parsedLng,
       adminId: session.user.id,
